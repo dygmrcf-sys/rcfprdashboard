@@ -511,6 +511,21 @@ function drawSparkline(n1,n2,reddit){
   $('spark-range').textContent=`${Math.min(...filled)}–${Math.max(...filled)} / day`;
 }
 
+
+// ── RELEVANCE FILTER ──────────────────────────────────────
+// Discard any item whose title+description doesn't mention
+// "RCF Kapurthala" or "Rail Coach Factory" — prevents off-topic results
+const MUST_MATCH = [
+  'rcf kapurthala',
+  'rail coach factory kapurthala',
+  'rail coach factory',
+  'rcf, kapurthala',
+];
+function isRelevant(item){
+  const hay = ((item.title||'') + ' ' + (item.description||item.selftext||'')).toLowerCase();
+  return MUST_MATCH.some(p => hay.includes(p));
+}
+
 // ── MAIN ─────────────────────────────────────────────────
 async function initAll(){
   ['news-feed','news2-feed','reddit-feed','alert-list','platform-chart','sentiment-wrap','kw-cloud','wiki-box'].forEach(id=>{
@@ -521,8 +536,8 @@ async function initAll(){
 
   const[r1,r2,rr,wiki]=await Promise.all([
     fetchRSS('"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"',15),
-    fetchRSS('"Rail Coach Factory" Kapurthala OR "Vande Bharat" Kapurthala',12),
-    fetchReddit('"RCF Kapurthala" OR "Rail Coach Factory Kapurthala" OR "Rail Coach Factory" Kapurthala'),
+    fetchRSS('"Rail Coach Factory Kapurthala" OR "RCF Kapurthala"',12),
+    fetchReddit('"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"'),
     fetchWiki()
   ]);
 
@@ -532,34 +547,39 @@ async function initAll(){
   const reddit = rr.posts;
   const wikiData = wiki;
 
+  // Apply relevance filter — only items actually mentioning RCF Kapurthala / Rail Coach Factory
+  const n1f = n1.filter(isRelevant);
+  const n2rawf = n2raw.filter(isRelevant);
+  const redditf = reddit.filter(isRelevant);
+
   // Deduplicate secondary feed against primary
-  const seen = new Set(n1.map(i => i.title));
-  const n2 = n2raw.filter(i => !seen.has(i.title));
+  const seen = new Set(n1f.map(i => i.title));
+  const n2 = n2rawf.filter(i => !seen.has(i.title));
 
   // Update banner and pill
   if (isLive) $('net-banner').classList.add('hidden');
   $('live-label').textContent = isLive ? 'LIVE' : 'OFFLINE';
 
-  const total = n1.length + n2.length + reddit.length;
+  const total = n1f.length + n2.length + redditf.length;
   $('k-total').textContent = total || '—';
-  $('k-news').textContent = n1.length || '—';
-  $('k-reddit').textContent = reddit.length || '—';
+  $('k-news').textContent = n1f.length || '—';
+  $('k-reddit').textContent = redditf.length || '—';
   $('k-reach').textContent = total ? fmt(total * 3200) : '—';
   $('k-trend').textContent = isLive ? '↑ Live data' : 'Network unavailable';
   $('k-trend').className = isLive ? 'kpi-sub up' : 'kpi-sub dn';
   $('last-upd').textContent='Updated: '+new Date().toLocaleTimeString('en-IN');
 
-  renderTicker([...n1,...n2]);
-  renderNews(n1,'news-feed','news-chip',8);
+  renderTicker([...n1f,...n2]);
+  renderNews(n1f,'news-feed','news-chip',8);
   renderNews(n2,'news2-feed','news2-chip',6);
-  renderReddit(reddit,8);
+  renderReddit(redditf,8);
   renderWiki(wikiData);
-  const texts=[...n1,...n2].map(i=>(i.title||'')+' '+(i.description||'')).concat(reddit.map(p=>p.title||''));
+  const texts=[...n1f,...n2].map(i=>(i.title||'')+' '+(i.description||'')).concat(redditf.map(p=>p.title||''));
   renderSentiment(texts);
-  renderPlatform(n1.length,n2.length,reddit.length);
+  renderPlatform(n1f.length,n2.length,redditf.length);
   renderKeywords(texts);
-  renderAlerts(n1,n2,reddit,isLive);
-  drawSparkline(n1,n2,reddit);
+  renderAlerts(n1f,n2,redditf,isLive);
+  drawSparkline(n1f,n2,redditf);
 }
 
 initAll();
