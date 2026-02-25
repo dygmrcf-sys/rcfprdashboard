@@ -178,7 +178,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:12
 
 <div id="net-banner">
   <span>⚠ PREVIEW MODE</span>
-  <span class="nb-msg">Network access is blocked in this preview sandbox — showing representative demo data. <strong style="color:var(--gold)">Download the HTML &amp; open in your browser</strong> to fetch live data from Google News RSS, Reddit &amp; Wikipedia (all free, no API keys needed).</span>
+  <span class="nb-msg">This preview sandbox blocks outbound network — feeds will be empty here. <strong style="color:var(--gold)">Download the HTML &amp; open it in your browser</strong> to load live data from Google News RSS, Reddit &amp; Wikipedia. No API keys needed.</span>
   <span class="nb-close" onclick="this.parentElement.classList.add('hidden')">✕</span>
 </div>
 
@@ -296,57 +296,74 @@ function stag(s){
   return'<span class="st st-u">Neutral</span>';
 }
 
-// ── DEMO DATA ─────────────────────────────────────────────
-const now=Date.now();
-const D_NEWS=[
-  {title:'RCF Kapurthala delivers 50 Vande Bharat coaches ahead of schedule',source:'The Hindu',pubDate:new Date(now-3600e3*3).toISOString(),link:'#'},
-  {title:'Rail Coach Factory Kapurthala sets new annual production record',source:'Times of India',pubDate:new Date(now-3600e3*9).toISOString(),link:'#'},
-  {title:'RCF Kapurthala workers raise concerns over overtime pay',source:'Hindustan Times',pubDate:new Date(now-3600e3*14).toISOString(),link:'#'},
-  {title:'Kapurthala factory to produce next-gen sleeper Vande Bharat coaches',source:'Indian Express',pubDate:new Date(now-86400e3*1).toISOString(),link:'#'},
-  {title:'Railway Minister inspects RCF Kapurthala, lauds modernisation drive',source:'NDTV',pubDate:new Date(now-86400e3*1.5).toISOString(),link:'#'},
-  {title:'RCF Kapurthala ties up with European firm for technology transfer',source:'Business Standard',pubDate:new Date(now-86400e3*2).toISOString(),link:'#'},
-  {title:'Delay in component supply disrupts RCF Kapurthala output targets',source:'Financial Express',pubDate:new Date(now-86400e3*2.5).toISOString(),link:'#'},
-  {title:'RCF Kapurthala exports coach bogies to Myanmar, Sri Lanka railways',source:'Mint',pubDate:new Date(now-86400e3*3).toISOString(),link:'#'},
-];
-const D_NEWS2=[
-  {title:'Indian Railways expands Vande Bharat fleet with 200 new coaches from Kapurthala',source:'Economic Times',pubDate:new Date(now-3600e3*6).toISOString(),link:'#'},
-  {title:'LHB coach production hits all-time high at Rail Coach Factory',source:'Rail News India',pubDate:new Date(now-86400e3*1).toISOString(),link:'#'},
-  {title:'Vande Bharat sleeper variant testing begins, RCF Kapurthala leads manufacturing',source:'Railway Gazette',pubDate:new Date(now-86400e3*2).toISOString(),link:'#'},
-  {title:'Indian Railways coach factories set to double output by 2027',source:'LiveMint',pubDate:new Date(now-86400e3*2.5).toISOString(),link:'#'},
-  {title:'Green hydrogen pilot launched at RCF Kapurthala plant',source:'Down To Earth',pubDate:new Date(now-86400e3*3).toISOString(),link:'#'},
-  {title:'Quality control issues flagged at coach factories including Kapurthala',source:'The Wire',pubDate:new Date(now-86400e3*4).toISOString(),link:'#'},
-];
-const D_REDDIT=[
-  {title:'Anyone know when the new Vande Bharat sleeper coaches from RCF Kapurthala will be deployed on which routes?',subreddit:'indianrailways',author:'rail_fan_2024',score:342,num_comments:87,created_utc:(now-3600e3*5)/1000,permalink:'/r/indianrailways/'},
-  {title:'RCF Kapurthala is doing amazing work — 50 coaches delivered this month alone!',subreddit:'india',author:'punjab_proud',score:1204,num_comments:156,created_utc:(now-3600e3*12)/1000,permalink:'/r/india/'},
-  {title:'Workers at Rail Coach Factory Kapurthala on work-to-rule protest over pending wage revision',subreddit:'IndianWorkplace',author:'labourwatch_in',score:89,num_comments:34,created_utc:(now-3600e3*20)/1000,permalink:'/r/IndianWorkplace/'},
-  {title:'Photos from inside RCF Kapurthala — incredible scale of Indian railway manufacturing [Gallery]',subreddit:'trains',author:'trainspotter_india',score:2891,num_comments:203,created_utc:(now-86400e3)/1000,permalink:'/r/trains/'},
-  {title:'Why does India not export more coaches internationally? RCF Kapurthala seems more than capable',subreddit:'geopolitics',author:'export_growth',score:445,num_comments:91,created_utc:(now-86400e3*1.5)/1000,permalink:'/r/geopolitics/'},
-  {title:'RCF Kapurthala vs ICF Chennai — which factory produces better quality coaches?',subreddit:'indianrailways',author:'coachquality',score:678,num_comments:112,created_utc:(now-86400e3*2)/1000,permalink:'/r/indianrailways/'},
-];
-const D_WIKI={extract:'Rail Coach Factory (RCF), Kapurthala is a production unit of Indian Railways located in Kapurthala, Punjab, India. Established in 1986, it is one of the largest rail coach manufacturing facilities in Asia, producing Linke-Hofmann-Busch (LHB) coaches, Vande Bharat Express train sets, and various other rolling stock for Indian and export markets.'};
+// ── FETCHES (no demo data — live APIs only, two CORS bridges) ──
 
-// ── FETCHES ───────────────────────────────────────────────
-async function fetchRSS(query,count=15){
-  const rss=`https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-IN&gl=IN&ceid=IN:en`;
-  const url=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=${count}`;
-  try{const r=await fetch(url);const d=await r.json();if(d.status==='ok')return{items:d.items||[],live:true};}catch(e){console.warn('RSS:',e.message)}
-  return{items:[],live:false};
+// 1. Google News RSS via rss2json (free, no key), with allorigins fallback
+async function fetchRSS(query, count=15){
+  const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-IN&gl=IN&ceid=IN:en`;
+  // Primary: rss2json
+  try {
+    const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=${count}`);
+    const d = await r.json();
+    if (d.status === 'ok' && d.items && d.items.length) return { items: d.items, live: true };
+  } catch(e) { console.warn('rss2json:', e.message); }
+  // Fallback: allorigins CORS proxy + manual XML parse
+  try {
+    const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rss)}`);
+    const d = await r.json();
+    if (d.contents) {
+      const xml = new DOMParser().parseFromString(d.contents, 'text/xml');
+      const items = Array.from(xml.querySelectorAll('item')).slice(0, count).map(el => ({
+        title: el.querySelector('title')?.textContent?.trim() || '',
+        link: el.querySelector('link')?.textContent?.trim() || el.querySelector('guid')?.textContent?.trim() || '',
+        pubDate: el.querySelector('pubDate')?.textContent?.trim() || new Date().toISOString(),
+        source: el.querySelector('source')?.textContent?.trim() || new URL(el.querySelector('link')?.textContent?.trim()||'https://news.google.com').hostname,
+        description: el.querySelector('description')?.textContent?.trim() || '',
+      })).filter(i => i.title);
+      if (items.length) return { items, live: true };
+    }
+  } catch(e) { console.warn('allorigins RSS:', e.message); }
+  return { items: [], live: false };
 }
+
+// 2. Reddit public JSON API, with allorigins fallback
 async function fetchReddit(query){
-  const url=`https://www.reddit.com/search.json?q=${encodeURIComponent(query)}&sort=new&limit=15&type=link`;
-  try{const r=await fetch(url);const d=await r.json();return{posts:d?.data?.children?.map(c=>c.data)||[],live:true};}catch(e){console.warn('Reddit:',e.message)}
-  return{posts:[],live:false};
+  const url = `https://www.reddit.com/search.json?q=${encodeURIComponent(query)}&sort=new&limit=20&type=link`;
+  try {
+    const r = await fetch(url, { headers: { Accept: 'application/json' } });
+    const d = await r.json();
+    const posts = d?.data?.children?.map(c => c.data).filter(p => p.title) || [];
+    if (posts.length) return { posts, live: true };
+  } catch(e) { console.warn('Reddit direct:', e.message); }
+  try {
+    const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+    const d = await r.json();
+    if (d.contents) {
+      const json = JSON.parse(d.contents);
+      const posts = json?.data?.children?.map(c => c.data).filter(p => p.title) || [];
+      if (posts.length) return { posts, live: true };
+    }
+  } catch(e) { console.warn('Reddit proxy:', e.message); }
+  return { posts: [], live: false };
 }
+
+// 3. Wikipedia REST API — free, no key
 async function fetchWiki(){
-  try{const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Rail_Coach_Factory,_Kapurthala');return await r.json();}catch(e){}
+  try {
+    const r = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Rail_Coach_Factory,_Kapurthala');
+    const d = await r.json();
+    if (d.extract) return d;
+  } catch(e) { console.warn('Wiki:', e.message); }
   return null;
 }
 
 // ── RENDERS ───────────────────────────────────────────────
 function renderNews(items,cid,chipId,limit=8){
   $(chipId).textContent=items.length+' Articles';
-  if(!items.length){$(cid).innerHTML='<div class="loading">No articles found.</div>';return}
+  if(!items.length){
+    $(cid).innerHTML='<div class="loading" style="flex-direction:column;gap:6px"><span style="font-size:18px">📭</span><span>No articles found.</span><span style="font-size:10px;color:var(--t3)">Open in your browser for live Google News RSS data.</span></div>';
+    return;
+  }
   $(cid).innerHTML=items.slice(0,limit).map(i=>{
     const s=snlp((i.title||'')+' '+(i.description||''));
     return`<div class="feed-item" onclick="window.open('${i.link||'#'}','_blank')">
@@ -360,7 +377,10 @@ function renderNews(items,cid,chipId,limit=8){
 }
 function renderReddit(posts,limit=8){
   $('reddit-chip').textContent=posts.length+' Posts';
-  if(!posts.length){$('reddit-feed').innerHTML='<div class="loading">No posts found.</div>';return}
+  if(!posts.length){
+    $('reddit-feed').innerHTML='<div class="loading" style="flex-direction:column;gap:6px"><span style="font-size:18px">📭</span><span>No Reddit posts found.</span><span style="font-size:10px;color:var(--t3)">Open in your browser for live Reddit API data.</span></div>';
+    return;
+  }
   $('reddit-feed').innerHTML=posts.slice(0,limit).map(p=>{
     const s=snlp(p.title||'');
     const score=p.score>999?(p.score/1000).toFixed(1)+'k':p.score;
@@ -375,12 +395,21 @@ function renderReddit(posts,limit=8){
   }).join('');
 }
 function renderWiki(data){
-  if(!data){$('wiki-box').innerHTML='<div class="loading" style="font-size:10px">Unable to load.</div>';return}
+  if(!data){
+    // Show known facts about RCF Kapurthala when API unreachable
+    data = {
+      extract: 'Rail Coach Factory (RCF), Kapurthala is a production unit of Indian Railways in Kapurthala, Punjab. Established in 1986, it is one of the largest rail coach manufacturing plants in Asia, producing LHB coaches and Vande Bharat Express train sets.'
+    };
+  }
   const rows=[['Established','1986'],['Location','Kapurthala, Punjab'],['Type','Public sector'],['Parent org.','Indian Railways'],['Products','LHB · Vande Bharat'],['Est. employees','~9,000+']];
   $('wiki-box').innerHTML=`<div class="wiki-excerpt">${(data.extract||'').substring(0,260)}…</div>
     <div class="info-box">${rows.map(([k,v])=>`<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`).join('')}</div>`;
 }
 function renderSentiment(texts){
+  if(!texts.length){
+    $('sentiment-wrap').innerHTML='<div class="loading" style="flex-direction:column;gap:6px"><span style="font-size:16px">📭</span><span style="font-size:10px">No data to analyse.</span></div>';
+    $('k-pos').textContent='—';$('k-neg').textContent='—';return;
+  }
   const ss=texts.map(t=>snlp(t));
   const pos=ss.filter(s=>s==='p').length,neg=ss.filter(s=>s==='n').length,neu=ss.filter(s=>s==='u').length;
   const tot=texts.length||1;
@@ -400,13 +429,14 @@ function renderPlatform(n1,n2,nr){
     {l:'Reddit',n:nr,c:'var(--orange)',bg:'rgba(255,140,66,.18)'},
     {l:'Wikipedia',n:1,c:'var(--purple)',bg:'rgba(176,106,255,.18)'},
   ];
-  const mx=Math.max(...data.map(d=>d.n),1);
+  const mx=Math.max(...data.map(d=>d.n),1); if(data.every(d=>d.n===0)){$('platform-chart').innerHTML='<div class="loading" style="flex-direction:column;gap:6px"><span style="font-size:16px">📭</span><span style="font-size:10px">No data yet.</span></div>';return;}
   $('platform-chart').innerHTML=data.map(d=>`
     <div class="pb-row"><div class="pb-lbl">${d.l}</div>
     <div class="pb-track"><div class="pb-fill" style="width:${Math.round(d.n/mx*100)}%;background:${d.bg};color:${d.c}">${d.n>1?d.n:''}</div></div>
     <div class="pb-count">${d.n}</div></div>`).join('');
 }
 function renderKeywords(texts){
+  if(!texts.length){$('kw-cloud').innerHTML='<span style="font-size:10px;color:var(--t3);padding:4px">No content to analyse yet.</span>';return;}
   const txt=texts.join(' ').toLowerCase();
   const kws=[
     {w:'Vande Bharat',t:'h'},{w:'LHB Coach',t:'h'},{w:'Rail Coach Factory',t:'h'},
@@ -425,24 +455,36 @@ function renderKeywords(texts){
 }
 function renderAlerts(n1,n2,reddit,live){
   const alerts=[];
-  const negN=[...n1,...n2].filter(i=>snlp(i.title)==='n');
-  const negR=reddit.filter(p=>snlp(p.title)==='n');
-  if(negN.length)alerts.push({t:'crit',i:'🔴',title:`${negN.length} Negative News Article${negN.length>1?'s':''}`,desc:'"'+(negN[0].title||'').substring(0,80)+'…"',time:'Now'});
-  if(negR.length)alerts.push({t:'warn',i:'⚠️',title:`${negR.length} Negative Reddit Post${negR.length>1?'s':''}`,desc:(negR[0].title||'').substring(0,90),time:timeAgo(new Date(negR[0].created_utc*1000).toISOString())});
-  const tot=n1.length+n2.length+reddit.length;
-  if(tot>15)alerts.push({t:'info',i:'📈',title:'High Mention Volume',desc:`${tot} items found across all sources — above typical baseline.`,time:'Today'});
-  alerts.push({t:'ok',i:live?'✅':'💾',title:live?'Live Data — All APIs Responding':'Demo Mode Active',desc:live?'Google News RSS, Reddit JSON, Wikipedia REST all live.':'Open this file in your browser to fetch real-time data. No API keys needed.',time:'Now'});
-  $('alert-chip').textContent=alerts.filter(a=>a.t!=='ok').length+' Active';
+  if(!live){
+    alerts.push({t:'warn',i:'🌐',title:'Network Unavailable in Preview',desc:'Download this HTML file and open it in your browser. Google News RSS, Reddit JSON API and Wikipedia are all free — no keys needed.',time:'Now'});
+  } else {
+    const negN=[...n1,...n2].filter(i=>snlp(i.title)==='n');
+    const negR=reddit.filter(p=>snlp(p.title)==='n');
+    if(negN.length)alerts.push({t:'crit',i:'🔴',title:`${negN.length} Negative News Article${negN.length>1?'s':''}`,desc:'"'+(negN[0].title||'').substring(0,80)+'…"',time:'Now'});
+    if(negR.length)alerts.push({t:'warn',i:'⚠️',title:`${negR.length} Negative Reddit Post${negR.length>1?'s':''}`,desc:(negR[0].title||'').substring(0,90),time:timeAgo(new Date(negR[0].created_utc*1000).toISOString())});
+    const tot=n1.length+n2.length+reddit.length;
+    if(tot>15)alerts.push({t:'info',i:'📈',title:'High Mention Volume Detected',desc:`${tot} items found across all sources — above typical baseline.`,time:'Today'});
+    alerts.push({t:'ok',i:'✅',title:'Live Data Active',desc:'Google News RSS, Reddit JSON API and Wikipedia REST all responding.',time:'Now'});
+  }
+  $('alert-chip').textContent=alerts.filter(a=>a.t==='crit'||a.t==='warn').length+' Active';
   $('alert-list').innerHTML=alerts.map(a=>`
     <div class="alert-item"><div class="a-ico ai-${a.t}">${a.i}</div>
     <div><div class="a-title">${a.title}</div><div class="a-desc">${a.desc}</div><div class="a-time">${a.time}</div></div></div>`).join('');
 }
 function renderTicker(items){
-  if(!items.length)return;
+  if(!items.length){
+    $('ticker-track').innerHTML='<span class="tick"><strong>RCF Kapurthala PR Monitor</strong><span class="sep">·</span>Open in your browser to load live headlines from Google News RSS</span>'.repeat(4);
+    return;
+  }
   const t=items.slice(0,10).map(i=>`<span class="tick"><strong>${(i.author||i.source||'News').substring(0,18)}</strong><span class="sep">·</span>${(i.title||'').substring(0,62)}…</span>`).join('');
   $('ticker-track').innerHTML=t+t;
 }
 function drawSparkline(n1,n2,reddit){
+  const totalItems=n1.length+n2.length+reddit.length;
+  if(!totalItems){
+    $('spark-svg').innerHTML='<text x="50%" y="50%" text-anchor="middle" font-size="11" fill="#4a5568" font-family="JetBrains Mono">No data — open in browser for live feed</text>';
+    $('trend-chip').textContent='No data';$('spark-range').textContent='—';return;
+  }
   const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-(6-i));return d.toISOString().slice(0,10)});
   const all=[
     ...n1.map(i=>({date:(i.pubDate||'').slice(0,10)})),
@@ -484,24 +526,27 @@ async function initAll(){
     fetchWiki()
   ]);
 
-  const isLive=r1.live||r2.live||rr.live;
-  const n1=r1.items.length?r1.items:D_NEWS;
-  const n2raw=r2.items.length?r2.items:D_NEWS2;
-  const reddit=rr.posts.length?rr.posts:D_REDDIT;
-  const wikiData=wiki||D_WIKI;
+  const isLive = r1.live || r2.live || rr.live;
+  const n1 = r1.items;
+  const n2raw = r2.items;
+  const reddit = rr.posts;
+  const wikiData = wiki;
 
-  const seen=new Set(n1.map(i=>i.title));
-  const n2=n2raw.filter(i=>!seen.has(i.title));
+  // Deduplicate secondary feed against primary
+  const seen = new Set(n1.map(i => i.title));
+  const n2 = n2raw.filter(i => !seen.has(i.title));
 
-  if(isLive)$('net-banner').classList.add('hidden');
-  $('live-label').textContent=isLive?'LIVE':'DEMO';
+  // Update banner and pill
+  if (isLive) $('net-banner').classList.add('hidden');
+  $('live-label').textContent = isLive ? 'LIVE' : 'OFFLINE';
 
-  $('k-total').textContent=n1.length+n2.length+reddit.length;
-  $('k-news').textContent=n1.length;
-  $('k-reddit').textContent=reddit.length;
-  $('k-reach').textContent=fmt((n1.length+n2.length+reddit.length)*3200);
-  $('k-trend').textContent=isLive?'↑ Live data':'↑ Demo data';
-  $('k-trend').className=isLive?'kpi-sub up':'kpi-sub';
+  const total = n1.length + n2.length + reddit.length;
+  $('k-total').textContent = total || '—';
+  $('k-news').textContent = n1.length || '—';
+  $('k-reddit').textContent = reddit.length || '—';
+  $('k-reach').textContent = total ? fmt(total * 3200) : '—';
+  $('k-trend').textContent = isLive ? '↑ Live data' : 'Network unavailable';
+  $('k-trend').className = isLive ? 'kpi-sub up' : 'kpi-sub dn';
   $('last-upd').textContent='Updated: '+new Date().toLocaleTimeString('en-IN');
 
   renderTicker([...n1,...n2]);
