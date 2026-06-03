@@ -27,6 +27,9 @@ header{background:var(--ink);color:#fff;display:flex;align-items:center;justify-
 .live-dot{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:10px;color:#7acea0;letter-spacing:1px}
 .ldot{width:5px;height:5px;border-radius:50%;background:#3ed98a;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.refresh-btn{background:none;border:1px solid #3a3530;color:#8a8078;font-family:var(--fm);font-size:9px;letter-spacing:.8px;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.refresh-btn:hover{border-color:#7acea0;color:#7acea0}
+.refresh-btn.spinning .r-icon{animation:spin .7s linear infinite}
 
 /* TABS */
 .tab-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 32px;position:sticky;top:52px;z-index:200}
@@ -48,7 +51,9 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 /* SECTION HEADERS */
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
 .section-title{font-family:var(--fh);font-size:19px}
-.section-meta{font-family:var(--fm);font-size:10px;color:var(--ink3)}
+.section-meta{font-family:var(--fm);font-size:10px;color:var(--ink3);display:flex;align-items:center;gap:8px}
+.source-tags{display:flex;gap:4px;flex-wrap:wrap}
+.src-tag{font-family:var(--fm);font-size:8px;padding:2px 6px;border-radius:3px;background:var(--bg);border:1px solid var(--border2);color:var(--ink3)}
 
 /* CARD */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
@@ -58,13 +63,17 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .b-amber{background:#fdf6ea;color:var(--amber);border:1px solid #e8d090}
 .b-gray{background:var(--bg);color:var(--ink3);border:1px solid var(--border2)}
 .b-red{background:#fdf0ee;color:var(--accent);border:1px solid #f0c0b8}
+.b-green{background:#eef8f2;color:var(--green);border:1px solid #a8d8b8}
+.b-blue{background:#eef4fb;color:var(--blue);border:1px solid #a8c0e0}
 
 /* NEWS SUB-TABS */
 .news-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);overflow-x:auto}
 .news-tabs::-webkit-scrollbar{height:2px}.news-tabs::-webkit-scrollbar-thumb{background:var(--border2)}
-.ntab{font-size:11px;font-weight:500;padding:10px 16px;cursor:pointer;color:var(--ink3);border-bottom:2px solid transparent;position:relative;top:1px;transition:color .15s,border-color .15s;white-space:nowrap;user-select:none;flex-shrink:0}
+.ntab{font-size:11px;font-weight:500;padding:10px 16px;cursor:pointer;color:var(--ink3);border-bottom:2px solid transparent;position:relative;top:1px;transition:color .15s,border-color .15s;white-space:nowrap;user-select:none;flex-shrink:0;display:flex;align-items:center;gap:5px}
 .ntab:hover{color:var(--ink2)}
 .ntab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.ntab-ct{font-family:var(--fm);font-size:8px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:1px 5px;transition:all .15s}
+.ntab.active .ntab-ct{background:#fdf0ee;border-color:#f0c0b8;color:var(--accent)}
 .news-pane{display:none}
 .news-pane.active{display:block}
 
@@ -74,9 +83,10 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .news-item:hover{background:var(--surface2)}
 .news-num{font-family:var(--fm);font-size:11px;color:var(--ink3);min-width:20px;padding-top:1px;flex-shrink:0}
 .news-body{flex:1;min-width:0}
-.news-source{font-family:var(--fm);font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.news-source{font-family:var(--fm);font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.news-source-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .news-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.45;margin-bottom:5px}
-.news-foot{display:flex;align-items:center;gap:8px}
+.news-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .news-time{font-family:var(--fm);font-size:9px;color:var(--ink3)}
 .sent{font-size:9px;padding:1px 6px;border-radius:5px;font-weight:500}
 .sent-p{background:#eef8f2;color:var(--green)}
@@ -84,11 +94,30 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .news-arrow{color:var(--ink3);font-size:13px;flex-shrink:0;transition:color .12s;padding-top:1px}
 .news-item:hover .news-arrow{color:var(--accent)}
 .feed-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:36px 20px;color:var(--ink3);font-size:12px;text-align:center}
+.feed-empty .hint{font-size:10px;color:var(--ink3);line-height:1.6;max-width:260px}
+
+/* STATUS BAR */
+.news-status{display:flex;align-items:center;justify-content:space-between;padding:8px 18px;background:var(--surface2);border-bottom:1px solid var(--border);font-family:var(--fm);font-size:9px;color:var(--ink3)}
+.status-pill{display:flex;align-items:center;gap:4px}
+.status-dot{width:4px;height:4px;border-radius:50%}
+.status-dot.ok{background:var(--green)}
+.status-dot.err{background:var(--accent)}
+.status-dot.loading{background:var(--amber);animation:blink 1s ease-in-out infinite}
 
 /* LOADING */
 .loading{display:flex;align-items:center;justify-content:center;gap:9px;padding:32px;font-size:11px;color:var(--ink3)}
 .spin{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* AI NEWS CARD */
+.ai-news-banner{background:linear-gradient(135deg,#1a1714 0%,#2a2420 100%);border-radius:10px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;border:1px solid #3a3530}
+.ai-banner-left{display:flex;align-items:center;gap:10px}
+.ai-banner-icon{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ai-banner-text{font-size:11px;color:#c8bfb0;line-height:1.5}
+.ai-banner-text strong{color:#fff;display:block;font-size:12px;margin-bottom:1px}
+.ai-fetch-btn{background:var(--accent);color:#fff;border:none;font-family:var(--fm);font-size:9px;letter-spacing:.8px;padding:7px 14px;border-radius:5px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.ai-fetch-btn:hover{background:#a83020}
+.ai-fetch-btn:disabled{background:#5c3028;cursor:not-allowed}
 
 /* CALENDAR */
 .cal-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
@@ -134,7 +163,7 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--surface);margin-top:32px}
 .footer-l{font-family:var(--fm);font-size:10px;color:var(--ink3)}
-.footer-r{display:flex;gap:6px}
+.footer-r{display:flex;gap:6px;flex-wrap:wrap}
 .api-tag{font-family:var(--fm);font-size:9px;padding:2px 8px;border-radius:6px;background:var(--bg);border:1px solid var(--border2);color:var(--ink3)}
 
 @media(max-width:960px){.dash-grid{grid-template-columns:1fr}.col-right{position:static}}
@@ -149,6 +178,9 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
     <span class="brand-title">Rail Coach Factory <em>Kapurthala</em></span>
   </div>
   <div class="hright">
+    <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">
+      <span class="r-icon">↻</span> REFRESH
+    </button>
     <div class="live-dot"><div class="ldot"></div>LIVE</div>
     <div id="clock"></div>
   </div>
@@ -172,19 +204,39 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
         <div>
           <div class="section-head">
             <div class="section-title">News Feed</div>
-            <div class="section-meta" id="news-updated">—</div>
+            <div class="section-meta">
+              <span id="news-updated">—</span>
+              <div class="source-tags" id="source-tags"></div>
+            </div>
           </div>
+
+          <!-- AI-powered fetch banner -->
+          <div class="ai-news-banner">
+            <div class="ai-banner-left">
+              <div class="ai-banner-icon">✦</div>
+              <div class="ai-banner-text">
+                <strong>AI-Powered Live News</strong>
+                Fetch the latest news directly via Claude AI with web search
+              </div>
+            </div>
+            <button class="ai-fetch-btn" id="ai-fetch-btn" onclick="fetchAINews()">FETCH LATEST</button>
+          </div>
+
           <div class="card">
             <div class="news-tabs">
-              <div class="ntab active" onclick="switchNews('rcf',this)">RCF Kapurthala</div>
-              <div class="ntab" onclick="switchNews('railways',this)">Indian Railways</div>
-              <div class="ntab" onclick="switchNews('region',this)">Kapurthala</div>
-              <div class="ntab" onclick="switchNews('vande',this)">Vande Bharat</div>
+              <div class="ntab active" onclick="switchNews('rcf',this)">RCF Kapurthala <span class="ntab-ct" id="ct-rcf">—</span></div>
+              <div class="ntab" onclick="switchNews('railways',this)">Indian Railways <span class="ntab-ct" id="ct-railways">—</span></div>
+              <div class="ntab" onclick="switchNews('region',this)">Kapurthala <span class="ntab-ct" id="ct-region">—</span></div>
+              <div class="ntab" onclick="switchNews('vande',this)">Vande Bharat <span class="ntab-ct" id="ct-vande">—</span></div>
             </div>
-            <div class="news-pane active" id="np-rcf"><div class="loading"><div class="spin"></div>Fetching…</div></div>
-            <div class="news-pane" id="np-railways"><div class="loading"><div class="spin"></div>Fetching…</div></div>
-            <div class="news-pane" id="np-region"><div class="loading"><div class="spin"></div>Fetching…</div></div>
-            <div class="news-pane" id="np-vande"><div class="loading"><div class="spin"></div>Fetching…</div></div>
+            <div id="news-status-bar" class="news-status" style="display:none">
+              <div class="status-pill"><div class="status-dot loading" id="status-dot"></div><span id="status-text">Loading…</span></div>
+              <span id="status-source"></span>
+            </div>
+            <div class="news-pane active" id="np-rcf"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
+            <div class="news-pane" id="np-railways"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
+            <div class="news-pane" id="np-region"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
+            <div class="news-pane" id="np-vande"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
           </div>
         </div>
       </div>
@@ -237,22 +289,26 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
 </main>
 
 <footer>
-  <div class="footer-l">RCF Kapurthala PR Monitor · Free public APIs only</div>
+  <div class="footer-l">RCF Kapurthala PR Monitor · <span id="footer-status">Initialising…</span></div>
   <div class="footer-r">
-    <span class="api-tag">Google Sheets CSV</span>
+    <span class="api-tag">Claude AI + Web Search</span>
     <span class="api-tag">Google News RSS</span>
     <span class="api-tag">rss2json.com</span>
+    <span class="api-tag">allorigins.win</span>
   </div>
 </footer>
 
 <script>
 const $ = id => document.getElementById(id);
 
-// Clock
+// ─── Clock ────────────────────────────────────────────────────────────────────
 function clock(){ $('clock').textContent = new Date().toLocaleTimeString('en-IN',{hour12:false})+' IST'; }
 setInterval(clock,1000); clock();
 
-// Tabs
+// Auto-refresh every 15 min
+setInterval(()=>{ loadNews(); }, 15*60*1000);
+
+// ─── Tabs ─────────────────────────────────────────────────────────────────────
 function switchTab(name,el){
   document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -264,75 +320,239 @@ function switchNews(name,el){
   $('np-'+name).classList.add('active'); el.classList.add('active');
 }
 
-// Utils
+// ─── Refresh ──────────────────────────────────────────────────────────────────
+function refreshAll(){
+  const btn=$('refresh-btn');
+  btn.classList.add('spinning');
+  Promise.all([loadNews(),loadCalendar()]).finally(()=>btn.classList.remove('spinning'));
+}
+
+// ─── Sentiment ────────────────────────────────────────────────────────────────
+const POS=['success','award','achiev','launch','inaugur','excellent','milestone','record','deliver','modern','improv','quality','export','capacity','boost','growth','efficient','pride','historic','congratul','new coach','production','manufactur'];
+const NEG=['delay','fail','accident','crash','problem','issue','protest','strike','suspend','cancel','defect','complaint','controversy','poor','injur','shortage','fire','damage','derail','death'];
+function snlp(t){ const tx=(t||'').toLowerCase(); let s=0; POS.forEach(w=>{if(tx.includes(w))s++}); NEG.forEach(w=>{if(tx.includes(w))s--}); return s>0?'p':s<0?'n':'u'; }
+
+// ─── Status bar ───────────────────────────────────────────────────────────────
+function setStatus(msg,src,state='loading'){
+  const bar=$('news-status-bar');
+  bar.style.display='flex';
+  $('status-text').textContent=msg;
+  $('status-source').textContent=src||'';
+  const dot=$('status-dot');
+  dot.className='status-dot '+state;
+}
+function hideStatus(){ $('news-status-bar').style.display='none'; }
+
+// ─── Time formatting ──────────────────────────────────────────────────────────
 function timeAgo(iso){
   const s=Math.floor((Date.now()-new Date(iso))/1000);
   if(s<60) return s+'s ago'; if(s<3600) return Math.floor(s/60)+'m ago';
   if(s<86400) return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago';
 }
-const POS=['success','award','achiev','launch','inaugur','excellent','milestone','record','deliver','modern','improv','quality','export','capacity','boost','growth','efficient','pride','historic','congratul'];
-const NEG=['delay','fail','accident','crash','problem','issue','protest','strike','suspend','cancel','defect','complaint','controversy','poor','injur','shortage','fire','damage'];
-function snlp(t){ const tx=(t||'').toLowerCase(); let s=0; POS.forEach(w=>{if(tx.includes(w))s++}); NEG.forEach(w=>{if(tx.includes(w))s--}); return s>0?'p':s<0?'n':'u'; }
 
-// RSS fetch
-async function fetchRSS(query,count=10){
-  const rss=`https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-IN&gl=IN&ceid=IN:en`;
-  try{
-    const r=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rss)}&count=${count}`);
-    const d=await r.json();
-    if(d.status==='ok'&&d.items?.length) return d.items;
-  }catch(e){}
-  try{
-    const r=await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rss)}`);
-    const d=await r.json();
-    if(d.contents){
-      const xml=new DOMParser().parseFromString(d.contents,'text/xml');
-      return Array.from(xml.querySelectorAll('item')).slice(0,count).map(el=>({
-        title:el.querySelector('title')?.textContent?.trim()||'',
-        link:el.querySelector('link')?.textContent?.trim()||'',
-        pubDate:el.querySelector('pubDate')?.textContent?.trim()||new Date().toISOString(),
-        author:el.querySelector('source')?.textContent?.trim()||'News',
-      })).filter(i=>i.title);
+// ─── RSS fetch with 3 proxy fallbacks ─────────────────────────────────────────
+async function fetchRSS(query, count=12){
+  const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-IN&gl=IN&ceid=IN:en&num=${count}`;
+
+  // Attempt 1: rss2json (most reliable, free tier)
+  try {
+    const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=${count}&api_key=`, {signal:AbortSignal.timeout(8000)});
+    const d = await r.json();
+    if(d.status==='ok' && d.items?.length){
+      return { items: d.items, source:'rss2json' };
     }
-  }catch(e){}
-  return [];
+  } catch(e){}
+
+  // Attempt 2: allorigins.win CORS proxy
+  try {
+    const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, {signal:AbortSignal.timeout(10000)});
+    const d = await r.json();
+    if(d.contents){
+      const items = parseRSSXML(d.contents, count);
+      if(items.length) return { items, source:'allorigins' };
+    }
+  } catch(e){}
+
+  // Attempt 3: corsproxy.io
+  try {
+    const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, {signal:AbortSignal.timeout(10000)});
+    const text = await r.text();
+    const items = parseRSSXML(text, count);
+    if(items.length) return { items, source:'corsproxy' };
+  } catch(e){}
+
+  return { items: [], source:'none' };
 }
 
-function renderNews(items,paneId){
+function parseRSSXML(xmlText, count=12){
+  try {
+    const xml = new DOMParser().parseFromString(xmlText, 'text/xml');
+    return Array.from(xml.querySelectorAll('item')).slice(0,count).map(el=>{
+      const titleRaw = el.querySelector('title')?.textContent?.trim() || '';
+      // Google News wraps titles as "Headline - Source"
+      const dashIdx = titleRaw.lastIndexOf(' - ');
+      const title = dashIdx > 0 ? titleRaw.slice(0, dashIdx) : titleRaw;
+      const author = dashIdx > 0 ? titleRaw.slice(dashIdx+3) : (el.querySelector('source')?.textContent?.trim() || 'News');
+      return {
+        title,
+        author,
+        link: el.querySelector('link')?.textContent?.trim() || el.querySelector('guid')?.textContent?.trim() || '#',
+        pubDate: el.querySelector('pubDate')?.textContent?.trim() || new Date().toISOString(),
+      };
+    }).filter(i=>i.title && i.title.length > 3);
+  } catch(e){ return []; }
+}
+
+// ─── Render news items ────────────────────────────────────────────────────────
+const SOURCE_COLORS = {
+  'The Hindu':'#c8402a','Times of India':'#2a5fa8','Hindustan Times':'#1e7a4a',
+  'NDTV':'#b87820','India Today':'#c8402a','The Tribune':'#2a5fa8',
+  'Business Standard':'#1e7a4a','LiveMint':'#b87820','PTI':'#9c968e',
+  'ANI':'#5c5650','Economic Times':'#2a5fa8','Indian Express':'#c8402a',
+};
+function sourceColor(src){
+  for(const [k,v] of Object.entries(SOURCE_COLORS)){
+    if((src||'').toLowerCase().includes(k.toLowerCase())) return v;
+  }
+  return 'var(--ink3)';
+}
+
+function renderNews(result, paneId, countId){
+  const {items, source} = result;
+  if(countId) $(countId).textContent = items.length || '—';
+
   if(!items.length){
-    $(paneId).innerHTML='<div class="feed-empty">📭 No articles found.<br><small style="margin-top:5px;display:block;font-size:10px">Open locally for live RSS data.</small></div>';
+    $(paneId).innerHTML=`<div class="feed-empty">
+      📭 No articles found via RSS proxies.
+      <span class="hint">Try the <strong>FETCH LATEST</strong> button above to use AI-powered live search instead.</span>
+    </div>`;
     return;
   }
-  $(paneId).innerHTML=items.map((it,i)=>{
-    const s=snlp(it.title);
-    const sent=s==='p'?'<span class="sent sent-p">positive</span>':s==='n'?'<span class="sent sent-n">negative</span>':'';
-    return`<div class="news-item" onclick="window.open('${it.link||'#'}','_blank')">
+  $(paneId).innerHTML = items.map((it,i)=>{
+    const s = snlp(it.title);
+    const sent = s==='p'?'<span class="sent sent-p">● positive</span>':s==='n'?'<span class="sent sent-n">● negative</span>':'';
+    const col = sourceColor(it.author||'');
+    return `<div class="news-item" onclick="window.open('${(it.link||'#').replace(/'/g,"\\'")}','_blank')">
       <div class="news-num">${String(i+1).padStart(2,'0')}</div>
       <div class="news-body">
-        <div class="news-source">${(it.author||'News').substring(0,32)}</div>
+        <div class="news-source">
+          <div class="news-source-dot" style="background:${col}"></div>
+          ${(it.author||'News').substring(0,40)}
+        </div>
         <div class="news-title">${it.title||''}</div>
-        <div class="news-foot"><span class="news-time">${timeAgo(it.pubDate)}</span>${sent}</div>
+        <div class="news-foot">
+          <span class="news-time">${timeAgo(it.pubDate)}</span>
+          ${sent}
+        </div>
       </div>
       <div class="news-arrow">↗</div>
     </div>`;
   }).join('');
 }
 
-async function loadNews(){
-  const [a,b,c,d]=await Promise.all([
-    fetchRSS('"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"',12),
-    fetchRSS('"Indian Railways" coaches OR production OR LHB',10),
-    fetchRSS('Kapurthala Punjab news',10),
-    fetchRSS('"Vande Bharat" OR "LHB coach" manufacturing India',10),
-  ]);
-  renderNews(a,'np-rcf'); renderNews(b,'np-railways');
-  renderNews(c,'np-region'); renderNews(d,'np-vande');
-  const tot=a.length+b.length+c.length+d.length;
-  $('badge-dash').textContent=tot?tot+' articles':'offline';
-  $('news-updated').textContent='Updated '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+// ─── AI-powered news fetch via Anthropic API ──────────────────────────────────
+async function fetchAINews(){
+  const btn = $('ai-fetch-btn');
+  btn.disabled = true;
+  btn.textContent = 'FETCHING…';
+  setStatus('Using Claude AI with web search to fetch live news…','Anthropic API');
+
+  try {
+    const queries = [
+      { key:'rcf',    query:'Find the 8 most recent news articles about "RCF Kapurthala" OR "Rail Coach Factory Kapurthala" from the last 30 days. For each article return: title, source publication, URL if known, publication date.' },
+      { key:'railways', query:'Find the 8 most recent news articles about Indian Railways coach manufacturing, LHB coaches, Vande Bharat production, or rail factory news from India in the last 30 days. For each: title, source, URL if known, date.' },
+      { key:'region', query:'Find the 8 most recent news articles about Kapurthala district Punjab India news, events, or developments in the last 30 days. For each: title, source, URL if known, date.' },
+      { key:'vande',  query:'Find the 8 most recent news articles about Vande Bharat Express train, new rake deliveries, manufacturing milestones, or Vande Metro in India from the last 30 days. For each: title, source, URL if known, date.' },
+    ];
+
+    const results = await Promise.all(queries.map(async ({key, query}) => {
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          model:'claude-sonnet-4-20250514',
+          max_tokens:1000,
+          tools:[{ type:'web_search_20250305', name:'web_search' }],
+          messages:[{
+            role:'user',
+            content: query + '\n\nRespond ONLY in JSON (no markdown, no preamble): {"items":[{"title":"...","author":"source name","pubDate":"ISO date or relative","link":"url or empty string"}]}'
+          }]
+        })
+      });
+      const data = await resp.json();
+      // Extract text from response content blocks
+      const textBlocks = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+      try {
+        const clean = textBlocks.replace(/```json|```/g,'').trim();
+        const parsed = JSON.parse(clean);
+        return { key, items:(parsed.items||[]).map(it=>({...it, pubDate: it.pubDate||new Date().toISOString()})) };
+      } catch(e){
+        // Fallback: parse titles from raw text
+        const lines = textBlocks.split('\n').filter(l=>l.trim().length>15 && !l.startsWith('{') && !l.startsWith('}'));
+        const items = lines.slice(0,8).map(l=>({
+          title: l.replace(/^\d+\.\s*/,'').replace(/^[-*]\s*/,'').trim(),
+          author:'News',
+          pubDate:new Date().toISOString(),
+          link:''
+        })).filter(i=>i.title.length>10);
+        return { key, items };
+      }
+    }));
+
+    let total=0;
+    results.forEach(({key,items})=>{
+      renderNews({items,source:'AI'}, 'np-'+key, 'ct-'+key);
+      total+=items.length;
+    });
+    $('badge-dash').textContent = total+' articles';
+    $('news-updated').textContent = 'AI-fetched at '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+    setStatus('AI fetch complete — '+total+' articles retrieved','Claude AI + Web Search','ok');
+    setTimeout(hideStatus,4000);
+    $('footer-status').textContent='AI news loaded · '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+  } catch(err){
+    setStatus('AI fetch failed: '+err.message,'','err');
+    console.error('AI news fetch error:',err);
+  } finally {
+    btn.disabled=false;
+    btn.textContent='FETCH LATEST';
+  }
 }
 
-// Calendar
+// ─── RSS news loader (auto on load) ───────────────────────────────────────────
+const NEWS_QUERIES = {
+  rcf:      '"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"',
+  railways: '"Indian Railways" coaches OR "LHB coach" OR "coach factory" production',
+  region:   'Kapurthala Punjab news 2025',
+  vande:    '"Vande Bharat" OR "Vande Metro" manufacturing India',
+};
+
+async function loadNews(){
+  setStatus('Fetching news from RSS sources…','Google News RSS');
+  const keys = Object.keys(NEWS_QUERIES);
+  const results = await Promise.all(keys.map(k => fetchRSS(NEWS_QUERIES[k], 12)));
+  let total=0, sources=new Set();
+  keys.forEach((k,i)=>{
+    renderNews(results[i], 'np-'+k, 'ct-'+k);
+    total += results[i].items.length;
+    if(results[i].source !== 'none') sources.add(results[i].source);
+  });
+  $('badge-dash').textContent = total ? total+' articles' : 'offline';
+  $('news-updated').textContent = 'RSS at '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+
+  // Show source tags
+  $('source-tags').innerHTML = [...sources].map(s=>`<span class="src-tag">${s}</span>`).join('');
+
+  if(total>0){
+    setStatus('RSS feed loaded — '+total+' articles','via '+[...sources].join(', '),'ok');
+    $('footer-status').textContent='RSS news loaded · '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+  } else {
+    setStatus('RSS proxies unavailable — click FETCH LATEST to use AI','','err');
+    $('footer-status').textContent='RSS unavailable — use AI fetch';
+  }
+  setTimeout(hideStatus,5000);
+}
+
+// ─── Calendar ─────────────────────────────────────────────────────────────────
 const SHEET_CSV=`https://docs.google.com/spreadsheets/d/1sj4pPxk0cLVsJ12aUXnytWJuw1sxUVSRD2MOK4hTgAU/export?format=csv&gid=0`;
 let allEvents=[], calYear=new Date().getFullYear(), calMonth=new Date().getMonth();
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -393,7 +613,6 @@ function renderCalendar(){
     </div>`;
   }
   $('cal-body').innerHTML=html;
-  // default: upcoming
   const today=new Date(todayStr);
   const upcoming=allEvents.filter(ev=>{const d=parseDate(ev.date);return d&&!isNaN(d)&&d>=today;})
     .sort((a,b)=>parseDate(a.date)-parseDate(b.date)).slice(0,12);
@@ -454,6 +673,7 @@ async function loadCalendar(){
   renderCalendar();
 }
 
+// ─── Init ─────────────────────────────────────────────────────────────────────
 loadNews();
 loadCalendar();
 </script>
