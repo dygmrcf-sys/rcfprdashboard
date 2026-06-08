@@ -11,6 +11,7 @@
   --border:#e8e4dc;--border2:#d8d2c8;
   --ink:#1a1714;--ink2:#5c5650;--ink3:#9c968e;
   --accent:#c8402a;--blue:#2a5fa8;--green:#1e7a4a;--amber:#b87820;
+  --punjab:#7b3fa0;
   --fh:'DM Serif Display',Georgia,serif;--fb:'DM Sans',sans-serif;--fm:'DM Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -65,6 +66,7 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .b-red{background:#fdf0ee;color:var(--accent);border:1px solid #f0c0b8}
 .b-green{background:#eef8f2;color:var(--green);border:1px solid #a8d8b8}
 .b-blue{background:#eef4fb;color:var(--blue);border:1px solid #a8c0e0}
+.b-purple{background:#f5eefb;color:var(--punjab);border:1px solid #c8a8e0}
 
 /* NEWS SUB-TABS */
 .news-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);overflow-x:auto}
@@ -74,6 +76,11 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .ntab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .ntab-ct{font-family:var(--fm);font-size:8px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:1px 5px;transition:all .15s}
 .ntab.active .ntab-ct{background:#fdf0ee;border-color:#f0c0b8;color:var(--accent)}
+/* Language badge pills on tabs */
+.lang-pill{font-family:var(--fm);font-size:7px;letter-spacing:.5px;padding:1px 5px;border-radius:3px;font-weight:600}
+.lp-hi{background:#fdf6ea;color:var(--amber);border:1px solid #e8d090}
+.lp-pa{background:#f5eefb;color:var(--punjab);border:1px solid #c8a8e0}
+.ntab.active .lang-pill{opacity:1}
 .news-pane{display:none}
 .news-pane.active{display:block}
 
@@ -91,6 +98,10 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .sent{font-size:9px;padding:1px 6px;border-radius:5px;font-weight:500}
 .sent-p{background:#eef8f2;color:var(--green)}
 .sent-n{background:#fdf0ee;color:var(--accent)}
+.lang-badge{font-family:var(--fm);font-size:8px;padding:1px 5px;border-radius:3px;font-weight:600}
+.lb-hi{background:#fdf6ea;color:var(--amber)}
+.lb-pa{background:#f5eefb;color:var(--punjab)}
+.lb-en{background:var(--bg);color:var(--ink3);border:1px solid var(--border2)}
 .news-arrow{color:var(--ink3);font-size:13px;flex-shrink:0;transition:color .12s;padding-top:1px}
 .news-item:hover .news-arrow{color:var(--accent)}
 .feed-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:36px 20px;color:var(--ink3);font-size:12px;text-align:center}
@@ -115,6 +126,7 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .ai-banner-icon{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 .ai-banner-text{font-size:11px;color:#c8bfb0;line-height:1.5}
 .ai-banner-text strong{color:#fff;display:block;font-size:12px;margin-bottom:1px}
+.ai-banner-text span{font-size:9px;color:#7acea0;display:block;margin-top:2px;font-family:var(--fm)}
 .ai-fetch-btn{background:var(--accent);color:#fff;border:none;font-family:var(--fm);font-size:9px;letter-spacing:.8px;padding:7px 14px;border-radius:5px;cursor:pointer;transition:all .15s;white-space:nowrap}
 .ai-fetch-btn:hover{background:#a83020}
 .ai-fetch-btn:disabled{background:#5c3028;cursor:not-allowed}
@@ -217,6 +229,7 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
               <div class="ai-banner-text">
                 <strong>AI-Powered Live News</strong>
                 Fetch the latest news directly via Claude AI with web search
+                <span>Covers English · हिंदी · ਪੰਜਾਬੀ sources</span>
               </div>
             </div>
             <button class="ai-fetch-btn" id="ai-fetch-btn" onclick="fetchAINews()">FETCH LATEST</button>
@@ -226,8 +239,10 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
             <div class="news-tabs">
               <div class="ntab active" onclick="switchNews('rcf',this)">RCF Kapurthala <span class="ntab-ct" id="ct-rcf">—</span></div>
               <div class="ntab" onclick="switchNews('railways',this)">Indian Railways <span class="ntab-ct" id="ct-railways">—</span></div>
-              <div class="ntab" onclick="switchNews('region',this)">Kapurthala <span class="ntab-ct" id="ct-region">—</span></div>
+              <div class="ntab" onclick="switchNews('region',this)">Kapurthala / Punjab <span class="ntab-ct" id="ct-region">—</span></div>
               <div class="ntab" onclick="switchNews('vande',this)">Vande Bharat <span class="ntab-ct" id="ct-vande">—</span></div>
+              <div class="ntab" onclick="switchNews('hindi',this)">हिंदी समाचार <span class="lang-pill lp-hi">HI</span> <span class="ntab-ct" id="ct-hindi">—</span></div>
+              <div class="ntab" onclick="switchNews('punjabi',this)">ਪੰਜਾਬੀ ਖ਼ਬਰਾਂ <span class="lang-pill lp-pa">PA</span> <span class="ntab-ct" id="ct-punjabi">—</span></div>
             </div>
             <div id="news-status-bar" class="news-status" style="display:none">
               <div class="status-pill"><div class="status-dot loading" id="status-dot"></div><span id="status-text">Loading…</span></div>
@@ -237,6 +252,8 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
             <div class="news-pane" id="np-railways"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
             <div class="news-pane" id="np-region"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
             <div class="news-pane" id="np-vande"><div class="loading"><div class="spin"></div>Fetching latest news…</div></div>
+            <div class="news-pane" id="np-hindi"><div class="loading"><div class="spin"></div>हिंदी समाचार लोड हो रहे हैं…</div></div>
+            <div class="news-pane" id="np-punjabi"><div class="loading"><div class="spin"></div>ਪੰਜਾਬੀ ਖ਼ਬਰਾਂ ਲੋਡ ਹੋ ਰਹੀਆਂ ਹਨ…</div></div>
           </div>
         </div>
       </div>
@@ -295,6 +312,8 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
     <span class="api-tag">Google News RSS</span>
     <span class="api-tag">rss2json.com</span>
     <span class="api-tag">allorigins.win</span>
+    <span class="api-tag" style="color:var(--amber)">हिंदी</span>
+    <span class="api-tag" style="color:var(--punjab)">ਪੰਜਾਬੀ</span>
   </div>
 </footer>
 
@@ -328,9 +347,33 @@ function refreshAll(){
 }
 
 // ─── Sentiment ────────────────────────────────────────────────────────────────
-const POS=['success','award','achiev','launch','inaugur','excellent','milestone','record','deliver','modern','improv','quality','export','capacity','boost','growth','efficient','pride','historic','congratul','new coach','production','manufactur'];
-const NEG=['delay','fail','accident','crash','problem','issue','protest','strike','suspend','cancel','defect','complaint','controversy','poor','injur','shortage','fire','damage','derail','death'];
+const POS=['success','award','achiev','launch','inaugur','excellent','milestone','record','deliver','modern','improv','quality','export','capacity','boost','growth','efficient','pride','historic','congratul','new coach','production','manufactur',
+  // Hindi positive words (transliterated)
+  'उपलब्धि','सफलता','लॉन्च','उद्घाटन','पुरस्कार','विकास','नई','उत्पादन',
+  // Punjabi positive words (transliterated)
+  'ਸਫਲਤਾ','ਲਾਂਚ','ਉਦਘਾਟਨ','ਵਿਕਾਸ','ਨਵੀਂ','ਉਤਪਾਦਨ'];
+const NEG=['delay','fail','accident','crash','problem','issue','protest','strike','suspend','cancel','defect','complaint','controversy','poor','injur','shortage','fire','damage','derail','death',
+  // Hindi negative words
+  'देरी','हादसा','समस्या','हड़ताल','रद्द','शिकायत','नुकसान',
+  // Punjabi negative words
+  'ਦੇਰੀ','ਹਾਦਸਾ','ਸਮੱਸਿਆ','ਹੜਤਾਲ','ਰੱਦ','ਸ਼ਿਕਾਇਤ'];
 function snlp(t){ const tx=(t||'').toLowerCase(); let s=0; POS.forEach(w=>{if(tx.includes(w))s++}); NEG.forEach(w=>{if(tx.includes(w))s--}); return s>0?'p':s<0?'n':'u'; }
+
+// ─── Detect language ──────────────────────────────────────────────────────────
+function detectLang(text){
+  if(!text) return 'en';
+  // Devanagari range
+  if(/[\u0900-\u097F]/.test(text)) return 'hi';
+  // Gurmukhi range
+  if(/[\u0A00-\u0A7F]/.test(text)) return 'pa';
+  return 'en';
+}
+function langBadge(text){
+  const l=detectLang(text);
+  if(l==='hi') return '<span class="lang-badge lb-hi">HI</span>';
+  if(l==='pa') return '<span class="lang-badge lb-pa">PA</span>';
+  return '<span class="lang-badge lb-en">EN</span>';
+}
 
 // ─── Status bar ───────────────────────────────────────────────────────────────
 function setStatus(msg,src,state='loading'){
@@ -351,10 +394,15 @@ function timeAgo(iso){
 }
 
 // ─── RSS fetch with 3 proxy fallbacks ─────────────────────────────────────────
-async function fetchRSS(query, count=12){
-  const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-IN&gl=IN&ceid=IN:en&num=${count}`;
+async function fetchRSS(query, lang='en', count=12){
+  // Build Google News RSS URL with proper language/region settings
+  let hl='en-IN', gl='IN', ceid='IN:en';
+  if(lang==='hi'){ hl='hi'; gl='IN'; ceid='IN:hi'; }
+  if(lang==='pa'){ hl='pa'; gl='IN'; ceid='IN:pa'; }
 
-  // Attempt 1: rss2json (most reliable, free tier)
+  const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=${hl}&gl=${gl}&ceid=${ceid}&num=${count}`;
+
+  // Attempt 1: rss2json
   try {
     const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=${count}&api_key=`, {signal:AbortSignal.timeout(8000)});
     const d = await r.json();
@@ -389,7 +437,6 @@ function parseRSSXML(xmlText, count=12){
     const xml = new DOMParser().parseFromString(xmlText, 'text/xml');
     return Array.from(xml.querySelectorAll('item')).slice(0,count).map(el=>{
       const titleRaw = el.querySelector('title')?.textContent?.trim() || '';
-      // Google News wraps titles as "Headline - Source"
       const dashIdx = titleRaw.lastIndexOf(' - ');
       const title = dashIdx > 0 ? titleRaw.slice(0, dashIdx) : titleRaw;
       const author = dashIdx > 0 ? titleRaw.slice(dashIdx+3) : (el.querySelector('source')?.textContent?.trim() || 'News');
@@ -409,6 +456,14 @@ const SOURCE_COLORS = {
   'NDTV':'#b87820','India Today':'#c8402a','The Tribune':'#2a5fa8',
   'Business Standard':'#1e7a4a','LiveMint':'#b87820','PTI':'#9c968e',
   'ANI':'#5c5650','Economic Times':'#2a5fa8','Indian Express':'#c8402a',
+  // Hindi newspapers
+  'Dainik Jagran':'#c8402a','Dainik Bhaskar':'#2a5fa8','Amar Ujala':'#1e7a4a',
+  'Punjab Kesari':'#b87820','Navbharat Times':'#c8402a','Jansatta':'#2a5fa8',
+  'दैनिक जागरण':'#c8402a','दैनिक भास्कर':'#2a5fa8','अमर उजाला':'#1e7a4a',
+  'पंजाब केसरी':'#b87820',
+  // Punjabi newspapers
+  'Ajit':'#7b3fa0','Punjabi Tribune':'#2a5fa8','Rozana Spokesman':'#1e7a4a',
+  'Jagbani':'#c8402a','ਅਜੀਤ':'#7b3fa0','ਪੰਜਾਬੀ ਟ੍ਰਿਬਿਊਨ':'#2a5fa8',
 };
 function sourceColor(src){
   for(const [k,v] of Object.entries(SOURCE_COLORS)){
@@ -432,6 +487,7 @@ function renderNews(result, paneId, countId){
     const s = snlp(it.title);
     const sent = s==='p'?'<span class="sent sent-p">● positive</span>':s==='n'?'<span class="sent sent-n">● negative</span>':'';
     const col = sourceColor(it.author||'');
+    const lbadge = langBadge(it.title);
     return `<div class="news-item" onclick="window.open('${(it.link||'#').replace(/'/g,"\\'")}','_blank')">
       <div class="news-num">${String(i+1).padStart(2,'0')}</div>
       <div class="news-body">
@@ -442,6 +498,7 @@ function renderNews(result, paneId, countId){
         <div class="news-title">${it.title||''}</div>
         <div class="news-foot">
           <span class="news-time">${timeAgo(it.pubDate)}</span>
+          ${lbadge}
           ${sent}
         </div>
       </div>
@@ -459,10 +516,30 @@ async function fetchAINews(){
 
   try {
     const queries = [
-      { key:'rcf',    query:'Find the 8 most recent news articles about "RCF Kapurthala" OR "Rail Coach Factory Kapurthala" from the last 30 days. For each article return: title, source publication, URL if known, publication date.' },
-      { key:'railways', query:'Find the 8 most recent news articles about Indian Railways coach manufacturing, LHB coaches, Vande Bharat production, or rail factory news from India in the last 30 days. For each: title, source, URL if known, date.' },
-      { key:'region', query:'Find the 8 most recent news articles about Kapurthala district Punjab India news, events, or developments in the last 30 days. For each: title, source, URL if known, date.' },
-      { key:'vande',  query:'Find the 8 most recent news articles about Vande Bharat Express train, new rake deliveries, manufacturing milestones, or Vande Metro in India from the last 30 days. For each: title, source, URL if known, date.' },
+      {
+        key:'rcf',
+        query:'Find the 8 most recent news articles about "RCF Kapurthala" OR "Rail Coach Factory Kapurthala" from the last 30 days. Include articles from English, Hindi (Dainik Jagran, Dainik Bhaskar, Amar Ujala, Punjab Kesari), and Punjabi (Ajit, Punjabi Tribune, Jagbani) newspapers. For each article return: title (in original language), source publication, URL if known, publication date.'
+      },
+      {
+        key:'railways',
+        query:'Find the 8 most recent news articles about Indian Railways coach manufacturing, LHB coaches, Vande Bharat production, or rail factory news from India in the last 30 days. Include English and Hindi newspaper sources. For each: title, source, URL if known, date.'
+      },
+      {
+        key:'region',
+        query:'Find the 8 most recent news articles about Kapurthala district Punjab India — local events, politics, development projects, civic issues — in the last 30 days. Include articles from local Punjabi (Ajit, Jagbani, Rozana Spokesman, Punjabi Tribune) and Hindi newspapers (Punjab Kesari, Dainik Jagran Jalandhar edition). For each: title in original language, source, URL if known, date.'
+      },
+      {
+        key:'vande',
+        query:'Find the 8 most recent news articles about Vande Bharat Express train, new rake deliveries, manufacturing milestones, or Vande Metro in India from the last 30 days. Include Hindi sources. For each: title, source, URL if known, date.'
+      },
+      {
+        key:'hindi',
+        query:'Find the 8 most recent Hindi-language news articles from Dainik Jagran, Dainik Bhaskar, Amar Ujala, Punjab Kesari, or Navbharat Times about: कपूरथला रेल कोच फैक्ट्री, RCF कपूरथला, भारतीय रेलवे कोच उत्पादन, वंदे भारत ट्रेन, या कपूरथला पंजाब समाचार — last 30 days. Return title in Hindi (Devanagari script), source name, URL if available, date. JSON format: {"items":[{"title":"...","author":"source","pubDate":"date","link":"url"}]}'
+      },
+      {
+        key:'punjabi',
+        query:'Find the 8 most recent Punjabi-language news articles from Ajit, Punjabi Tribune, Rozana Spokesman, Jagbani, or Chardikala about: ਕਪੂਰਥਲਾ ਰੇਲ ਕੋਚ ਫੈਕਟਰੀ, RCF ਕਪੂਰਥਲਾ, ਭਾਰਤੀ ਰੇਲਵੇ, ਵੰਦੇ ਭਾਰਤ, ਕਪੂਰਥਲਾ ਪੰਜਾਬ — last 30 days. Return title in Punjabi (Gurmukhi script), source name, URL if available, date. JSON format: {"items":[{"title":"...","author":"source","pubDate":"date","link":"url"}]}'
+      },
     ];
 
     const results = await Promise.all(queries.map(async ({key, query}) => {
@@ -480,14 +557,12 @@ async function fetchAINews(){
         })
       });
       const data = await resp.json();
-      // Extract text from response content blocks
       const textBlocks = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
       try {
         const clean = textBlocks.replace(/```json|```/g,'').trim();
         const parsed = JSON.parse(clean);
         return { key, items:(parsed.items||[]).map(it=>({...it, pubDate: it.pubDate||new Date().toISOString()})) };
       } catch(e){
-        // Fallback: parse titles from raw text
         const lines = textBlocks.split('\n').filter(l=>l.trim().length>15 && !l.startsWith('{') && !l.startsWith('}'));
         const items = lines.slice(0,8).map(l=>({
           title: l.replace(/^\d+\.\s*/,'').replace(/^[-*]\s*/,'').trim(),
@@ -519,27 +594,30 @@ async function fetchAINews(){
 }
 
 // ─── RSS news loader (auto on load) ───────────────────────────────────────────
-const NEWS_QUERIES = {
-  rcf:      '"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"',
-  railways: '"Indian Railways" coaches OR "LHB coach" OR "coach factory" production',
-  region:   'Kapurthala Punjab news 2025',
-  vande:    '"Vande Bharat" OR "Vande Metro" manufacturing India',
-};
+// Each entry: { query, lang, key }
+const NEWS_FEEDS = [
+  { key:'rcf',      lang:'en', query:'"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"' },
+  { key:'railways', lang:'en', query:'"Indian Railways" coaches OR "LHB coach" OR "coach factory" production' },
+  // Expanded region tab: English + Hindi queries merged
+  { key:'region',   lang:'en', query:'Kapurthala Punjab news OR "कपूरथला" OR "Kapurthala district" 2025' },
+  { key:'vande',    lang:'en', query:'"Vande Bharat" OR "Vande Metro" manufacturing India' },
+  // Hindi tab: Hindi Google News for RCF + Kapurthala + Punjab railways
+  { key:'hindi',    lang:'hi', query:'कपूरथला रेल कोच फैक्ट्री OR RCF कपूरथला OR कपूरथला पंजाब OR वंदे भारत उत्पादन' },
+  // Punjabi tab: Punjabi Google News
+  { key:'punjabi',  lang:'pa', query:'ਕਪੂਰਥਲਾ ਰੇਲ ਕੋਚ OR RCF ਕਪੂਰਥਲਾ OR ਕਪੂਰਥਲਾ ਪੰਜਾਬ OR ਵੰਦੇ ਭਾਰਤ' },
+];
 
 async function loadNews(){
   setStatus('Fetching news from RSS sources…','Google News RSS');
-  const keys = Object.keys(NEWS_QUERIES);
-  const results = await Promise.all(keys.map(k => fetchRSS(NEWS_QUERIES[k], 12)));
+  const results = await Promise.all(NEWS_FEEDS.map(f => fetchRSS(f.query, f.lang, 12).then(r=>({...r,key:f.key}))));
   let total=0, sources=new Set();
-  keys.forEach((k,i)=>{
-    renderNews(results[i], 'np-'+k, 'ct-'+k);
-    total += results[i].items.length;
-    if(results[i].source !== 'none') sources.add(results[i].source);
+  results.forEach(r=>{
+    renderNews(r, 'np-'+r.key, 'ct-'+r.key);
+    total += r.items.length;
+    if(r.source !== 'none') sources.add(r.source);
   });
   $('badge-dash').textContent = total ? total+' articles' : 'offline';
   $('news-updated').textContent = 'RSS at '+new Date().toLocaleTimeString('en-IN',{hour12:false});
-
-  // Show source tags
   $('source-tags').innerHTML = [...sources].map(s=>`<span class="src-tag">${s}</span>`).join('');
 
   if(total>0){
