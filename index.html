@@ -17,7 +17,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--fb);min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* HEADER */
 header{background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:52px;position:sticky;top:0;z-index:300}
 .brand{display:flex;align-items:center;gap:14px}
 .brand-badge{background:var(--accent);color:#fff;font-family:var(--fm);font-size:10px;letter-spacing:2px;padding:4px 9px;border-radius:3px}
@@ -32,7 +31,6 @@ header{background:var(--ink);color:#fff;display:flex;align-items:center;justify-
 .refresh-btn:hover{border-color:#7acea0;color:#7acea0}
 .refresh-btn.spinning .r-icon{animation:spin .7s linear infinite}
 
-/* TABS */
 .tab-bar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 32px;position:sticky;top:52px;z-index:200}
 .tab{font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:14px 20px;cursor:pointer;color:var(--ink3);border-bottom:2px solid transparent;transition:color .18s,border-color .18s;display:flex;align-items:center;gap:7px;position:relative;top:1px;user-select:none}
 .tab:hover{color:var(--ink2)}
@@ -40,7 +38,6 @@ header{background:var(--ink);color:#fff;display:flex;align-items:center;justify-
 .tab-count{font-family:var(--fm);font-size:9px;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:1px 6px;color:var(--ink3)}
 .tab.active .tab-count{background:#fdf0ee;border-color:#f0c0b8;color:var(--accent)}
 
-/* LAYOUT */
 main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .tab-pane{display:none}
 .tab-pane.active{display:block;animation:fadein .25s ease}
@@ -49,14 +46,12 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .col-left{display:flex;flex-direction:column;gap:20px}
 .col-right{position:sticky;top:120px;display:flex;flex-direction:column;gap:16px}
 
-/* SECTION HEADERS */
 .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
 .section-title{font-family:var(--fh);font-size:19px}
 .section-meta{font-family:var(--fm);font-size:10px;color:var(--ink3);display:flex;align-items:center;gap:8px}
 .source-tags{display:flex;gap:4px;flex-wrap:wrap}
 .src-tag{font-family:var(--fm);font-size:8px;padding:2px 6px;border-radius:3px;background:var(--bg);border:1px solid var(--border2);color:var(--ink3)}
 
-/* CARD */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .card-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface2)}
 .card-label{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--ink2);display:flex;align-items:center;gap:6px}
@@ -68,7 +63,6 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .b-blue{background:#eef4fb;color:var(--blue);border:1px solid #a8c0e0}
 .b-purple{background:#f5eefb;color:var(--punjab);border:1px solid #c8a8e0}
 
-/* NEWS SUB-TABS */
 .news-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);overflow-x:auto}
 .news-tabs::-webkit-scrollbar{height:2px}.news-tabs::-webkit-scrollbar-thumb{background:var(--border2)}
 .ntab{font-size:11px;font-weight:500;padding:10px 16px;cursor:pointer;color:var(--ink3);border-bottom:2px solid transparent;position:relative;top:1px;transition:color .15s,border-color .15s;white-space:nowrap;user-select:none;flex-shrink:0;display:flex;align-items:center;gap:5px}
@@ -76,15 +70,12 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .ntab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .ntab-ct{font-family:var(--fm);font-size:8px;background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:1px 5px;transition:all .15s}
 .ntab.active .ntab-ct{background:#fdf0ee;border-color:#f0c0b8;color:var(--accent)}
-/* Language badge pills on tabs */
 .lang-pill{font-family:var(--fm);font-size:7px;letter-spacing:.5px;padding:1px 5px;border-radius:3px;font-weight:600}
 .lp-hi{background:#fdf6ea;color:var(--amber);border:1px solid #e8d090}
 .lp-pa{background:#f5eefb;color:var(--punjab);border:1px solid #c8a8e0}
-.ntab.active .lang-pill{opacity:1}
 .news-pane{display:none}
 .news-pane.active{display:block}
 
-/* NEWS ITEMS */
 .news-item{display:flex;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;align-items:flex-start}
 .news-item:last-child{border-bottom:none}
 .news-item:hover{background:var(--surface2)}
@@ -107,7 +98,6 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .feed-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:36px 20px;color:var(--ink3);font-size:12px;text-align:center}
 .feed-empty .hint{font-size:10px;color:var(--ink3);line-height:1.6;max-width:260px}
 
-/* STATUS BAR */
 .news-status{display:flex;align-items:center;justify-content:space-between;padding:8px 18px;background:var(--surface2);border-bottom:1px solid var(--border);font-family:var(--fm);font-size:9px;color:var(--ink3)}
 .status-pill{display:flex;align-items:center;gap:4px}
 .status-dot{width:4px;height:4px;border-radius:50%}
@@ -115,12 +105,11 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .status-dot.err{background:var(--accent)}
 .status-dot.loading{background:var(--amber);animation:blink 1s ease-in-out infinite}
 
-/* LOADING */
 .loading{display:flex;align-items:center;justify-content:center;gap:9px;padding:32px;font-size:11px;color:var(--ink3)}
 .spin{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* AI NEWS CARD */
+/* AI News Banner */
 .ai-news-banner{background:linear-gradient(135deg,#1a1714 0%,#2a2420 100%);border-radius:10px;padding:16px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;border:1px solid #3a3530}
 .ai-banner-left{display:flex;align-items:center;gap:10px}
 .ai-banner-icon{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
@@ -131,7 +120,7 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .ai-fetch-btn:hover{background:#a83020}
 .ai-fetch-btn:disabled{background:#5c3028;cursor:not-allowed}
 
-/* CALENDAR */
+/* Calendar */
 .cal-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
 .cal-month-label{font-family:var(--fh);font-size:15px}
 .cal-month-label em{font-style:italic;color:var(--accent)}
@@ -156,7 +145,6 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .ev-pip.tc-other{background:var(--bg);color:var(--ink3)}
 .more-ev{font-size:8px;color:var(--ink3);font-family:var(--fm);padding:1px 3px}
 
-/* EVENT LIST */
 .ev-scroll{max-height:340px;overflow-y:auto}
 .ev-scroll::-webkit-scrollbar{width:3px}.ev-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .ev-item{display:flex;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
@@ -168,11 +156,28 @@ main{max-width:1300px;margin:0 auto;padding:28px 32px}
 .ev-meta{font-family:var(--fm);font-size:9px;color:var(--ink3);line-height:1.7;white-space:pre-line}
 .ev-tag{display:inline-block;font-size:8px;letter-spacing:.5px;text-transform:uppercase;padding:1px 6px;border-radius:3px;margin-top:4px;font-weight:600}
 
-/* AI TAB */
-.ai-shell{height:calc(100vh - 160px);min-height:520px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
-.ai-shell iframe{width:100%;height:100%;border:none;display:block}
+/* AI Chat Tab */
+.ai-chat-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:520px;display:flex;flex-direction:column}
+.ai-chat-head{background:var(--ink);padding:14px 20px;display:flex;align-items:center;gap:12px}
+.ai-chat-head-icon{width:32px;height:32px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ai-chat-head-text strong{color:#fff;font-size:13px;display:block}
+.ai-chat-head-text span{color:#7acea0;font-family:var(--fm);font-size:9px;letter-spacing:.5px}
+.ai-chat-msgs{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-height:400px}
+.ai-chat-msgs::-webkit-scrollbar{width:3px}.ai-chat-msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.msg{max-width:88%;font-size:13px;line-height:1.55;padding:10px 14px;border-radius:8px}
+.msg-ai{background:var(--surface2);border:1px solid var(--border);color:var(--ink);align-self:flex-start;border-radius:2px 8px 8px 8px}
+.msg-user{background:var(--ink);color:#e8e0d8;align-self:flex-end;border-radius:8px 2px 8px 8px}
+.msg-thinking{background:var(--surface2);border:1px solid var(--border);color:var(--ink3);align-self:flex-start;font-size:11px;font-style:italic;display:flex;align-items:center;gap:6px}
+.ai-chat-input-row{display:flex;gap:8px;padding:14px 16px;border-top:1px solid var(--border);background:var(--surface2)}
+.ai-chat-input-row input{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--ink);font-family:var(--fb);outline:none}
+.ai-chat-input-row input:focus{border-color:var(--accent)}
+.ai-send-btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:9px 16px;font-size:11px;font-family:var(--fm);letter-spacing:.6px;cursor:pointer;transition:background .15s;white-space:nowrap}
+.ai-send-btn:hover{background:#a83020}
+.ai-send-btn:disabled{background:#d89080;cursor:not-allowed}
+.quick-btns{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 12px;background:var(--surface2);border-top:none}
+.qbtn{background:var(--bg);border:1px solid var(--border2);border-radius:5px;padding:5px 10px;font-size:10px;color:var(--ink2);cursor:pointer;transition:all .15s;font-family:var(--fb)}
+.qbtn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* FOOTER */
 footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--surface);margin-top:32px}
 .footer-l{font-family:var(--fm);font-size:10px;color:var(--ink3)}
 .footer-r{display:flex;gap:6px;flex-wrap:wrap}
@@ -207,11 +212,9 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
 
 <main>
 
-  <!-- ═══ DASHBOARD ═══ -->
+  <!-- DASHBOARD -->
   <div class="tab-pane active" id="pane-dashboard">
     <div class="dash-grid">
-
-      <!-- LEFT: News -->
       <div class="col-left">
         <div>
           <div class="section-head">
@@ -222,14 +225,13 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
             </div>
           </div>
 
-          <!-- AI-powered fetch banner -->
           <div class="ai-news-banner">
             <div class="ai-banner-left">
               <div class="ai-banner-icon">✦</div>
               <div class="ai-banner-text">
                 <strong>AI-Powered Live News</strong>
-                Fetch the latest news directly via Claude AI with web search
-                <span>Covers English · हिंदी · ਪੰਜਾਬੀ sources</span>
+                Fetch latest news via free AI (Pollinations AI · Llama 3)
+                <span>Covers English · हिंदी · ਪੰਜਾਬੀ sources · No API key needed</span>
               </div>
             </div>
             <button class="ai-fetch-btn" id="ai-fetch-btn" onclick="fetchAINews()">FETCH LATEST</button>
@@ -258,7 +260,6 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
         </div>
       </div>
 
-      <!-- RIGHT: Calendar + Events -->
       <div class="col-right">
         <div>
           <div class="section-head">
@@ -292,14 +293,33 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ═══ AI ADVISOR ═══ -->
+  <!-- AI ADVISOR TAB -->
   <div class="tab-pane" id="pane-ai">
-    <div class="ai-shell">
-      <iframe src="https://script.google.com/macros/s/AKfycbx-L9IynQYm1A6jJ9EzEGUYdexXiNFwhZt7PDcTxL5L3Jr4UYth0s2o-aG0w5SHHC5r/exec" allowfullscreen></iframe>
+    <div class="ai-chat-wrap">
+      <div class="ai-chat-head">
+        <div class="ai-chat-head-icon">✦</div>
+        <div class="ai-chat-head-text">
+          <strong>RCF PR Advisor</strong>
+          <span>POWERED BY POLLINATIONS AI · LLAMA 3 · FREE · NO API KEY</span>
+        </div>
+      </div>
+      <div class="ai-chat-msgs" id="chat-msgs">
+        <div class="msg msg-ai">Namaskar! I am your RCF Kapurthala PR Advisor, powered by free open-source AI (Llama 3 via Pollinations.ai). I can help with press releases, media strategies, event communication, and public relations for Rail Coach Factory Kapurthala. How can I assist you today?</div>
+      </div>
+      <div class="quick-btns">
+        <button class="qbtn" onclick="quickAsk('Draft a press release for a new Vande Bharat coach delivery milestone')">Press release draft</button>
+        <button class="qbtn" onclick="quickAsk('Suggest media talking points for RCF production achievements')">Media talking points</button>
+        <button class="qbtn" onclick="quickAsk('How to handle negative media coverage about rail factory delays?')">Crisis communication</button>
+        <button class="qbtn" onclick="quickAsk('Write a social media post about RCF Kapurthala achievements')">Social media post</button>
+        <button class="qbtn" onclick="quickAsk('What are best PR practices for public sector manufacturing units in India?')">PR best practices</button>
+      </div>
+      <div class="ai-chat-input-row">
+        <input type="text" id="chat-input" placeholder="Ask about PR, media, press releases, event communication…" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="ai-send-btn" id="chat-send" onclick="sendChat()">SEND</button>
+      </div>
     </div>
   </div>
 
@@ -308,7 +328,8 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
 <footer>
   <div class="footer-l">RCF Kapurthala PR Monitor · <span id="footer-status">Initialising…</span></div>
   <div class="footer-r">
-    <span class="api-tag">Claude AI + Web Search</span>
+    <span class="api-tag" style="color:var(--green)">Pollinations AI (Free)</span>
+    <span class="api-tag">Llama 3.3 70B</span>
     <span class="api-tag">Google News RSS</span>
     <span class="api-tag">rss2json.com</span>
     <span class="api-tag">allorigins.win</span>
@@ -320,14 +341,12 @@ footer{border-top:1px solid var(--border);padding:12px 32px;display:flex;justify
 <script>
 const $ = id => document.getElementById(id);
 
-// ─── Clock ────────────────────────────────────────────────────────────────────
+// Clock
 function clock(){ $('clock').textContent = new Date().toLocaleTimeString('en-IN',{hour12:false})+' IST'; }
 setInterval(clock,1000); clock();
-
-// Auto-refresh every 15 min
 setInterval(()=>{ loadNews(); }, 15*60*1000);
 
-// ─── Tabs ─────────────────────────────────────────────────────────────────────
+// Tabs
 function switchTab(name,el){
   document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -339,32 +358,20 @@ function switchNews(name,el){
   $('np-'+name).classList.add('active'); el.classList.add('active');
 }
 
-// ─── Refresh ──────────────────────────────────────────────────────────────────
 function refreshAll(){
   const btn=$('refresh-btn');
   btn.classList.add('spinning');
   Promise.all([loadNews(),loadCalendar()]).finally(()=>btn.classList.remove('spinning'));
 }
 
-// ─── Sentiment ────────────────────────────────────────────────────────────────
-const POS=['success','award','achiev','launch','inaugur','excellent','milestone','record','deliver','modern','improv','quality','export','capacity','boost','growth','efficient','pride','historic','congratul','new coach','production','manufactur',
-  // Hindi positive words (transliterated)
-  'उपलब्धि','सफलता','लॉन्च','उद्घाटन','पुरस्कार','विकास','नई','उत्पादन',
-  // Punjabi positive words (transliterated)
-  'ਸਫਲਤਾ','ਲਾਂਚ','ਉਦਘਾਟਨ','ਵਿਕਾਸ','ਨਵੀਂ','ਉਤਪਾਦਨ'];
-const NEG=['delay','fail','accident','crash','problem','issue','protest','strike','suspend','cancel','defect','complaint','controversy','poor','injur','shortage','fire','damage','derail','death',
-  // Hindi negative words
-  'देरी','हादसा','समस्या','हड़ताल','रद्द','शिकायत','नुकसान',
-  // Punjabi negative words
-  'ਦੇਰੀ','ਹਾਦਸਾ','ਸਮੱਸਿਆ','ਹੜਤਾਲ','ਰੱਦ','ਸ਼ਿਕਾਇਤ'];
+// Sentiment
+const POS=['success','award','achiev','launch','inaugur','excellent','milestone','record','deliver','modern','improv','quality','export','capacity','boost','growth','efficient','pride','historic','congratul','new coach','production','manufactur','उपलब्धि','सफलता','लॉन्च','उद्घाटन','पुरस्कार','विकास','नई','उत्पादन','ਸਫਲਤਾ','ਲਾਂਚ','ਉਦਘਾਟਨ','ਵਿਕਾਸ','ਨਵੀਂ','ਉਤਪਾਦਨ'];
+const NEG=['delay','fail','accident','crash','problem','issue','protest','strike','suspend','cancel','defect','complaint','controversy','poor','injur','shortage','fire','damage','derail','death','देरी','हादसा','समस्या','हड़ताल','रद्द','शिकायत','नुकसान','ਦੇਰੀ','ਹਾਦਸਾ','ਸਮੱਸਿਆ','ਹੜਤਾਲ','ਰੱਦ','ਸ਼ਿਕਾਇਤ'];
 function snlp(t){ const tx=(t||'').toLowerCase(); let s=0; POS.forEach(w=>{if(tx.includes(w))s++}); NEG.forEach(w=>{if(tx.includes(w))s--}); return s>0?'p':s<0?'n':'u'; }
 
-// ─── Detect language ──────────────────────────────────────────────────────────
 function detectLang(text){
   if(!text) return 'en';
-  // Devanagari range
   if(/[\u0900-\u097F]/.test(text)) return 'hi';
-  // Gurmukhi range
   if(/[\u0A00-\u0A7F]/.test(text)) return 'pa';
   return 'en';
 }
@@ -375,7 +382,6 @@ function langBadge(text){
   return '<span class="lang-badge lb-en">EN</span>';
 }
 
-// ─── Status bar ───────────────────────────────────────────────────────────────
 function setStatus(msg,src,state='loading'){
   const bar=$('news-status-bar');
   bar.style.display='flex';
@@ -386,47 +392,47 @@ function setStatus(msg,src,state='loading'){
 }
 function hideStatus(){ $('news-status-bar').style.display='none'; }
 
-// ─── Time formatting ──────────────────────────────────────────────────────────
 function timeAgo(iso){
   const s=Math.floor((Date.now()-new Date(iso))/1000);
   if(s<60) return s+'s ago'; if(s<3600) return Math.floor(s/60)+'m ago';
   if(s<86400) return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago';
 }
 
-// ─── RSS fetch with 3 proxy fallbacks ─────────────────────────────────────────
+// RSS fetch with 4 proxy fallbacks
 async function fetchRSS(query, lang='en', count=12){
-  // Build Google News RSS URL with proper language/region settings
   let hl='en-IN', gl='IN', ceid='IN:en';
   if(lang==='hi'){ hl='hi'; gl='IN'; ceid='IN:hi'; }
   if(lang==='pa'){ hl='pa'; gl='IN'; ceid='IN:pa'; }
-
   const rssUrl = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=${hl}&gl=${gl}&ceid=${ceid}&num=${count}`;
 
-  // Attempt 1: rss2json
+  // 1: rss2json (free tier)
   try {
-    const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=${count}&api_key=`, {signal:AbortSignal.timeout(8000)});
+    const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=${count}`, {signal:AbortSignal.timeout(8000)});
     const d = await r.json();
-    if(d.status==='ok' && d.items?.length){
-      return { items: d.items, source:'rss2json' };
-    }
+    if(d.status==='ok' && d.items?.length) return { items: d.items, source:'rss2json' };
   } catch(e){}
 
-  // Attempt 2: allorigins.win CORS proxy
+  // 2: allorigins.win
   try {
     const r = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, {signal:AbortSignal.timeout(10000)});
     const d = await r.json();
-    if(d.contents){
-      const items = parseRSSXML(d.contents, count);
-      if(items.length) return { items, source:'allorigins' };
-    }
+    if(d.contents){ const items=parseRSSXML(d.contents,count); if(items.length) return {items,source:'allorigins'}; }
   } catch(e){}
 
-  // Attempt 3: corsproxy.io
+  // 3: corsproxy.io
   try {
     const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, {signal:AbortSignal.timeout(10000)});
     const text = await r.text();
-    const items = parseRSSXML(text, count);
-    if(items.length) return { items, source:'corsproxy' };
+    const items = parseRSSXML(text,count);
+    if(items.length) return {items,source:'corsproxy'};
+  } catch(e){}
+
+  // 4: thingproxy.freeboard.io
+  try {
+    const r = await fetch(`https://thingproxy.freeboard.io/fetch/${rssUrl}`, {signal:AbortSignal.timeout(10000)});
+    const text = await r.text();
+    const items = parseRSSXML(text,count);
+    if(items.length) return {items,source:'thingproxy'};
   } catch(e){}
 
   return { items: [], source:'none' };
@@ -438,31 +444,24 @@ function parseRSSXML(xmlText, count=12){
     return Array.from(xml.querySelectorAll('item')).slice(0,count).map(el=>{
       const titleRaw = el.querySelector('title')?.textContent?.trim() || '';
       const dashIdx = titleRaw.lastIndexOf(' - ');
-      const title = dashIdx > 0 ? titleRaw.slice(0, dashIdx) : titleRaw;
+      const title = dashIdx > 0 ? titleRaw.slice(0,dashIdx) : titleRaw;
       const author = dashIdx > 0 ? titleRaw.slice(dashIdx+3) : (el.querySelector('source')?.textContent?.trim() || 'News');
       return {
-        title,
-        author,
+        title, author,
         link: el.querySelector('link')?.textContent?.trim() || el.querySelector('guid')?.textContent?.trim() || '#',
         pubDate: el.querySelector('pubDate')?.textContent?.trim() || new Date().toISOString(),
       };
-    }).filter(i=>i.title && i.title.length > 3);
+    }).filter(i=>i.title && i.title.length>3);
   } catch(e){ return []; }
 }
 
-// ─── Render news items ────────────────────────────────────────────────────────
 const SOURCE_COLORS = {
-  'The Hindu':'#c8402a','Times of India':'#2a5fa8','Hindustan Times':'#1e7a4a',
-  'NDTV':'#b87820','India Today':'#c8402a','The Tribune':'#2a5fa8',
-  'Business Standard':'#1e7a4a','LiveMint':'#b87820','PTI':'#9c968e',
-  'ANI':'#5c5650','Economic Times':'#2a5fa8','Indian Express':'#c8402a',
-  // Hindi newspapers
-  'Dainik Jagran':'#c8402a','Dainik Bhaskar':'#2a5fa8','Amar Ujala':'#1e7a4a',
-  'Punjab Kesari':'#b87820','Navbharat Times':'#c8402a','Jansatta':'#2a5fa8',
-  'दैनिक जागरण':'#c8402a','दैनिक भास्कर':'#2a5fa8','अमर उजाला':'#1e7a4a',
-  'पंजाब केसरी':'#b87820',
-  // Punjabi newspapers
-  'Ajit':'#7b3fa0','Punjabi Tribune':'#2a5fa8','Rozana Spokesman':'#1e7a4a',
+  'The Hindu':'#c8402a','Times of India':'#2a5fa8','Hindustan Times':'#1e7a4a','NDTV':'#b87820',
+  'India Today':'#c8402a','The Tribune':'#2a5fa8','Business Standard':'#1e7a4a','LiveMint':'#b87820',
+  'PTI':'#9c968e','ANI':'#5c5650','Economic Times':'#2a5fa8','Indian Express':'#c8402a',
+  'Dainik Jagran':'#c8402a','Dainik Bhaskar':'#2a5fa8','Amar Ujala':'#1e7a4a','Punjab Kesari':'#b87820',
+  'Navbharat Times':'#c8402a','दैनिक जागरण':'#c8402a','दैनिक भास्कर':'#2a5fa8','अमर उजाला':'#1e7a4a',
+  'पंजाब केसरी':'#b87820','Ajit':'#7b3fa0','Punjabi Tribune':'#2a5fa8','Rozana Spokesman':'#1e7a4a',
   'Jagbani':'#c8402a','ਅਜੀਤ':'#7b3fa0','ਪੰਜਾਬੀ ਟ੍ਰਿਬਿਊਨ':'#2a5fa8',
 };
 function sourceColor(src){
@@ -475,12 +474,8 @@ function sourceColor(src){
 function renderNews(result, paneId, countId){
   const {items, source} = result;
   if(countId) $(countId).textContent = items.length || '—';
-
   if(!items.length){
-    $(paneId).innerHTML=`<div class="feed-empty">
-      📭 No articles found via RSS proxies.
-      <span class="hint">Try the <strong>FETCH LATEST</strong> button above to use AI-powered live search instead.</span>
-    </div>`;
+    $(paneId).innerHTML=`<div class="feed-empty">📭 No articles found via RSS proxies.<span class="hint">Click <strong>FETCH LATEST</strong> above to use free AI-powered search (Pollinations AI, no key needed).</span></div>`;
     return;
   }
   $(paneId).innerHTML = items.map((it,i)=>{
@@ -498,8 +493,7 @@ function renderNews(result, paneId, countId){
         <div class="news-title">${it.title||''}</div>
         <div class="news-foot">
           <span class="news-time">${timeAgo(it.pubDate)}</span>
-          ${lbadge}
-          ${sent}
+          ${lbadge}${sent}
         </div>
       </div>
       <div class="news-arrow">↗</div>
@@ -507,127 +501,174 @@ function renderNews(result, paneId, countId){
   }).join('');
 }
 
-// ─── AI-powered news fetch via Anthropic API ──────────────────────────────────
+// ─── AI News Fetch via Pollinations.ai (FREE, no key needed) ──────────────────
+// Pollinations Text API: https://text.pollinations.ai/{prompt}?model=llama&seed=42&json=true
+// Or POST to https://text.pollinations.ai/
+async function pollinationsAI(prompt, systemPrompt=''){
+  const body = {
+    messages: [
+      ...(systemPrompt ? [{ role:'system', content: systemPrompt }] : []),
+      { role:'user', content: prompt }
+    ],
+    model: 'llama',
+    jsonMode: true,
+    seed: Math.floor(Math.random()*9999)
+  };
+  const r = await fetch('https://text.pollinations.ai/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(30000)
+  });
+  if(!r.ok) throw new Error('Pollinations API error: '+r.status);
+  return await r.text();
+}
+
+async function pollinationsChat(messages){
+  const body = { messages, model:'llama', seed: Math.floor(Math.random()*9999) };
+  const r = await fetch('https://text.pollinations.ai/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(30000)
+  });
+  if(!r.ok) throw new Error('Pollinations API error: '+r.status);
+  return await r.text();
+}
+
+const today = new Date().toLocaleDateString('en-IN',{year:'numeric',month:'long',day:'numeric'});
+
 async function fetchAINews(){
   const btn = $('ai-fetch-btn');
   btn.disabled = true;
   btn.textContent = 'FETCHING…';
-  setStatus('Using Claude AI with web search to fetch live news…','Anthropic API');
+  setStatus('Using Pollinations AI (Llama 3, free) to generate news summaries…','Pollinations.ai');
 
-  try {
-    const queries = [
-      {
-        key:'rcf',
-        query:'Find the 8 most recent news articles about "RCF Kapurthala" OR "Rail Coach Factory Kapurthala" from the last 30 days. Include articles from English, Hindi (Dainik Jagran, Dainik Bhaskar, Amar Ujala, Punjab Kesari), and Punjabi (Ajit, Punjabi Tribune, Jagbani) newspapers. For each article return: title (in original language), source publication, URL if known, publication date.'
-      },
-      {
-        key:'railways',
-        query:'Find the 8 most recent news articles about Indian Railways coach manufacturing, LHB coaches, Vande Bharat production, or rail factory news from India in the last 30 days. Include English and Hindi newspaper sources. For each: title, source, URL if known, date.'
-      },
-      {
-        key:'region',
-        query:'Find the 8 most recent news articles about Kapurthala district Punjab India — local events, politics, development projects, civic issues — in the last 30 days. Include articles from local Punjabi (Ajit, Jagbani, Rozana Spokesman, Punjabi Tribune) and Hindi newspapers (Punjab Kesari, Dainik Jagran Jalandhar edition). For each: title in original language, source, URL if known, date.'
-      },
-      {
-        key:'vande',
-        query:'Find the 8 most recent news articles about Vande Bharat Express train, new rake deliveries, manufacturing milestones, or Vande Metro in India from the last 30 days. Include Hindi sources. For each: title, source, URL if known, date.'
-      },
-      {
-        key:'hindi',
-        query:'Find the 8 most recent Hindi-language news articles from Dainik Jagran, Dainik Bhaskar, Amar Ujala, Punjab Kesari, or Navbharat Times about: कपूरथला रेल कोच फैक्ट्री, RCF कपूरथला, भारतीय रेलवे कोच उत्पादन, वंदे भारत ट्रेन, या कपूरथला पंजाब समाचार — last 30 days. Return title in Hindi (Devanagari script), source name, URL if available, date. JSON format: {"items":[{"title":"...","author":"source","pubDate":"date","link":"url"}]}'
-      },
-      {
-        key:'punjabi',
-        query:'Find the 8 most recent Punjabi-language news articles from Ajit, Punjabi Tribune, Rozana Spokesman, Jagbani, or Chardikala about: ਕਪੂਰਥਲਾ ਰੇਲ ਕੋਚ ਫੈਕਟਰੀ, RCF ਕਪੂਰਥਲਾ, ਭਾਰਤੀ ਰੇਲਵੇ, ਵੰਦੇ ਭਾਰਤ, ਕਪੂਰਥਲਾ ਪੰਜਾਬ — last 30 days. Return title in Punjabi (Gurmukhi script), source name, URL if available, date. JSON format: {"items":[{"title":"...","author":"source","pubDate":"date","link":"url"}]}'
-      },
-    ];
+  const queries = [
+    { key:'rcf',      prompt:`List 6 recent news headlines about "RCF Kapurthala" or "Rail Coach Factory Kapurthala" India as of ${today}. Return ONLY valid JSON: {"items":[{"title":"headline","author":"source publication","pubDate":"2025-01-01","link":""}]}` },
+    { key:'railways', prompt:`List 6 recent news headlines about Indian Railways coach manufacturing, LHB coaches, or Vande Bharat production as of ${today}. Return ONLY valid JSON: {"items":[{"title":"headline","author":"source","pubDate":"2025-01-01","link":""}]}` },
+    { key:'region',   prompt:`List 6 recent news headlines about Kapurthala district Punjab India — local events, development, politics as of ${today}. Return ONLY valid JSON: {"items":[{"title":"headline","author":"source","pubDate":"2025-01-01","link":""}]}` },
+    { key:'vande',    prompt:`List 6 recent news headlines about Vande Bharat Express train launches, deliveries, or milestones in India as of ${today}. Return ONLY valid JSON: {"items":[{"title":"headline","author":"source","pubDate":"2025-01-01","link":""}]}` },
+    { key:'hindi',    prompt:`List 6 recent Hindi news headlines (in Devanagari script) from Hindi newspapers about कपूरथला रेल कोच फैक्ट्री, RCF कपूरथला, वंदे भारत, या भारतीय रेलवे as of ${today}. Return ONLY valid JSON: {"items":[{"title":"हिंदी शीर्षक","author":"समाचार स्रोत","pubDate":"2025-01-01","link":""}]}` },
+    { key:'punjabi',  prompt:`List 6 recent Punjabi news headlines (in Gurmukhi script) from Punjabi newspapers about ਕਪੂਰਥਲਾ ਰੇਲ ਕੋਚ ਫੈਕਟਰੀ, ਵੰਦੇ ਭਾਰਤ, ਭਾਰਤੀ ਰੇਲਵੇ as of ${today}. Return ONLY valid JSON: {"items":[{"title":"ਪੰਜਾਬੀ ਸਿਰਲੇਖ","author":"ਸਰੋਤ","pubDate":"2025-01-01","link":""}]}` },
+  ];
 
-    const results = await Promise.all(queries.map(async ({key, query}) => {
-      const resp = await fetch('https://api.anthropic.com/v1/messages', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({
-          model:'claude-sonnet-4-20250514',
-          max_tokens:1000,
-          tools:[{ type:'web_search_20250305', name:'web_search' }],
-          messages:[{
-            role:'user',
-            content: query + '\n\nRespond ONLY in JSON (no markdown, no preamble): {"items":[{"title":"...","author":"source name","pubDate":"ISO date or relative","link":"url or empty string"}]}'
-          }]
-        })
-      });
-      const data = await resp.json();
-      const textBlocks = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
-      try {
-        const clean = textBlocks.replace(/```json|```/g,'').trim();
-        const parsed = JSON.parse(clean);
-        return { key, items:(parsed.items||[]).map(it=>({...it, pubDate: it.pubDate||new Date().toISOString()})) };
-      } catch(e){
-        const lines = textBlocks.split('\n').filter(l=>l.trim().length>15 && !l.startsWith('{') && !l.startsWith('}'));
-        const items = lines.slice(0,8).map(l=>({
-          title: l.replace(/^\d+\.\s*/,'').replace(/^[-*]\s*/,'').trim(),
-          author:'News',
-          pubDate:new Date().toISOString(),
-          link:''
-        })).filter(i=>i.title.length>10);
-        return { key, items };
-      }
-    }));
-
-    let total=0;
-    results.forEach(({key,items})=>{
-      renderNews({items,source:'AI'}, 'np-'+key, 'ct-'+key);
-      total+=items.length;
-    });
-    $('badge-dash').textContent = total+' articles';
-    $('news-updated').textContent = 'AI-fetched at '+new Date().toLocaleTimeString('en-IN',{hour12:false});
-    setStatus('AI fetch complete — '+total+' articles retrieved','Claude AI + Web Search','ok');
-    setTimeout(hideStatus,4000);
-    $('footer-status').textContent='AI news loaded · '+new Date().toLocaleTimeString('en-IN',{hour12:false});
-  } catch(err){
-    setStatus('AI fetch failed: '+err.message,'','err');
-    console.error('AI news fetch error:',err);
-  } finally {
-    btn.disabled=false;
-    btn.textContent='FETCH LATEST';
+  let total=0;
+  // Process sequentially to avoid rate limiting
+  for(const {key, prompt} of queries){
+    try {
+      const raw = await pollinationsAI(prompt, 'You are a news research assistant. Always respond with valid JSON only, no markdown, no explanation.');
+      const clean = raw.replace(/```json|```/g,'').trim();
+      const start = clean.indexOf('{');
+      const end = clean.lastIndexOf('}');
+      const jsonStr = start>=0 && end>start ? clean.slice(start,end+1) : clean;
+      const parsed = JSON.parse(jsonStr);
+      const items = (parsed.items||[]).map(it=>({...it, pubDate: it.pubDate||new Date().toISOString()}));
+      renderNews({items,source:'Pollinations AI'}, 'np-'+key, 'ct-'+key);
+      total += items.length;
+    } catch(err){
+      renderNews({items:[],source:'error'}, 'np-'+key, 'ct-'+key);
+      console.error('AI news fetch error for', key, err);
+    }
   }
+
+  $('badge-dash').textContent = total ? total+' articles' : 'offline';
+  $('news-updated').textContent = 'AI at '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+  if(total>0){
+    setStatus('AI fetch complete — '+total+' summaries via Pollinations AI (Llama 3, free)','pollinations.ai','ok');
+    $('footer-status').textContent='AI news loaded · '+new Date().toLocaleTimeString('en-IN',{hour12:false});
+  } else {
+    setStatus('AI fetch returned no results — try RSS refresh','','err');
+  }
+  setTimeout(hideStatus, 5000);
+  btn.disabled=false;
+  btn.textContent='FETCH LATEST';
 }
 
-// ─── RSS news loader (auto on load) ───────────────────────────────────────────
-// Each entry: { query, lang, key }
+// RSS feeds
 const NEWS_FEEDS = [
   { key:'rcf',      lang:'en', query:'"RCF Kapurthala" OR "Rail Coach Factory Kapurthala"' },
   { key:'railways', lang:'en', query:'"Indian Railways" coaches OR "LHB coach" OR "coach factory" production' },
-  // Expanded region tab: English + Hindi queries merged
   { key:'region',   lang:'en', query:'Kapurthala Punjab news OR "कपूरथला" OR "Kapurthala district" 2025' },
   { key:'vande',    lang:'en', query:'"Vande Bharat" OR "Vande Metro" manufacturing India' },
-  // Hindi tab: Hindi Google News for RCF + Kapurthala + Punjab railways
   { key:'hindi',    lang:'hi', query:'कपूरथला रेल कोच फैक्ट्री OR RCF कपूरथला OR कपूरथला पंजाब OR वंदे भारत उत्पादन' },
-  // Punjabi tab: Punjabi Google News
   { key:'punjabi',  lang:'pa', query:'ਕਪੂਰਥਲਾ ਰੇਲ ਕੋਚ OR RCF ਕਪੂਰਥਲਾ OR ਕਪੂਰਥਲਾ ਪੰਜਾਬ OR ਵੰਦੇ ਭਾਰਤ' },
 ];
 
 async function loadNews(){
   setStatus('Fetching news from RSS sources…','Google News RSS');
-  const results = await Promise.all(NEWS_FEEDS.map(f => fetchRSS(f.query, f.lang, 12).then(r=>({...r,key:f.key}))));
+  const results = await Promise.all(NEWS_FEEDS.map(f => fetchRSS(f.query,f.lang,12).then(r=>({...r,key:f.key}))));
   let total=0, sources=new Set();
   results.forEach(r=>{
-    renderNews(r, 'np-'+r.key, 'ct-'+r.key);
+    renderNews(r,'np-'+r.key,'ct-'+r.key);
     total += r.items.length;
-    if(r.source !== 'none') sources.add(r.source);
+    if(r.source!=='none') sources.add(r.source);
   });
   $('badge-dash').textContent = total ? total+' articles' : 'offline';
   $('news-updated').textContent = 'RSS at '+new Date().toLocaleTimeString('en-IN',{hour12:false});
   $('source-tags').innerHTML = [...sources].map(s=>`<span class="src-tag">${s}</span>`).join('');
-
   if(total>0){
-    setStatus('RSS feed loaded — '+total+' articles','via '+[...sources].join(', '),'ok');
+    setStatus('RSS loaded — '+total+' articles','via '+[...sources].join(', '),'ok');
     $('footer-status').textContent='RSS news loaded · '+new Date().toLocaleTimeString('en-IN',{hour12:false});
   } else {
-    setStatus('RSS proxies unavailable — click FETCH LATEST to use AI','','err');
+    setStatus('RSS proxies unavailable — click FETCH LATEST for AI-sourced news','','err');
     $('footer-status').textContent='RSS unavailable — use AI fetch';
   }
   setTimeout(hideStatus,5000);
+}
+
+// ─── AI Chat (Pollinations.ai, free, no key) ───────────────────────────────────
+let chatHistory = [
+  { role:'system', content:`You are an expert PR and communications advisor for Rail Coach Factory (RCF) Kapurthala, a premier rail coach manufacturing facility of Indian Railways. You specialize in public relations, media management, press releases, crisis communication, government communications, and stakeholder engagement for Indian public sector manufacturing units. Be concise, professional, and helpful. Today's date: ${today}.` },
+  { role:'assistant', content:'Namaskar! I am your RCF Kapurthala PR Advisor, powered by free open-source AI (Llama 3 via Pollinations.ai). I can help with press releases, media strategies, event communication, and public relations for Rail Coach Factory Kapurthala. How can I assist you today?' }
+];
+
+function addMsg(role, text){
+  const msgs = $('chat-msgs');
+  const div = document.createElement('div');
+  div.className = 'msg msg-'+role;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+async function sendChat(){
+  const input = $('chat-input');
+  const btn = $('chat-send');
+  const text = input.value.trim();
+  if(!text) return;
+
+  input.value = '';
+  btn.disabled = true;
+  addMsg('user', text);
+  chatHistory.push({ role:'user', content:text });
+
+  const thinking = addMsg('thinking', '⟳ Thinking…');
+  thinking.className = 'msg msg-thinking';
+
+  try {
+    const reply = await pollinationsChat(chatHistory);
+    thinking.remove();
+    const cleanReply = reply.trim();
+    addMsg('ai', cleanReply);
+    chatHistory.push({ role:'assistant', content:cleanReply });
+    // Keep history at last 20 messages to avoid token overflow
+    if(chatHistory.length > 22) chatHistory = [chatHistory[0], ...chatHistory.slice(-20)];
+  } catch(err){
+    thinking.remove();
+    addMsg('ai', 'Sorry, I could not connect to the AI service right now. Please check your internet connection and try again. (Pollinations.ai free API)');
+    console.error('Chat error:', err);
+  } finally {
+    btn.disabled = false;
+    input.focus();
+  }
+}
+
+function quickAsk(q){
+  $('chat-input').value = q;
+  switchTab('ai', document.querySelectorAll('.tab')[1]);
+  sendChat();
 }
 
 // ─── Calendar ─────────────────────────────────────────────────────────────────
@@ -665,7 +706,7 @@ function typeClass(type){
   return 'tc-other';
 }
 function typeColor(tc){
-  return{tc_official:'var(--amber)',tc_media:'var(--blue)',tc_internal:'var(--green)',tc_community:'var(--accent)',tc_other:'var(--ink3)'}[tc.replace('-','_')]||'var(--ink3)';
+  return{tc_official:'var(--amber)',tc_media:'var(--blue)',tc_internal:'var(--green)',tc_community:'var(--accent)',tc_other:'var(--ink3)'}[tc.replace(/-/g,'_')]||'var(--ink3)';
 }
 
 function renderCalendar(){
@@ -691,8 +732,8 @@ function renderCalendar(){
     </div>`;
   }
   $('cal-body').innerHTML=html;
-  const today=new Date(todayStr);
-  const upcoming=allEvents.filter(ev=>{const d=parseDate(ev.date);return d&&!isNaN(d)&&d>=today;})
+  const todayD=new Date(todayStr);
+  const upcoming=allEvents.filter(ev=>{const d=parseDate(ev.date);return d&&!isNaN(d)&&d>=todayD;})
     .sort((a,b)=>parseDate(a.date)-parseDate(b.date)).slice(0,12);
   renderEvList(upcoming,'Upcoming Events',upcoming.length+' events');
 }
@@ -751,7 +792,6 @@ async function loadCalendar(){
   renderCalendar();
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
 loadNews();
 loadCalendar();
 </script>
