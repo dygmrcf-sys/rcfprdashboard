@@ -402,7 +402,7 @@
 
 <footer>
   Source: NewsData.io free tier — English, Hindi &amp; Punjabi coverage, India-filtered, ~12 hour delay.<br>
-  Each topic runs three searches (EN/HI/PA) per refresh across 7 topics, so auto-refresh is set to every 4 hours to stay inside the 200 credits/day free-tier budget — use manual Refresh for anything more urgent.<br>
+  Each topic runs three searches (EN/HI/PA) per refresh across 9 topics, so auto-refresh is set to every 6 hours to stay inside the 200 credits/day free-tier budget — use manual Refresh for anything more urgent.<br>
   Signal dots mark recency — <span style="color:#3fa34d">green</span> under 3 hours, <span style="color:#f0a93b">amber</span> under 24 hours, <span style="color:#d6534a">red</span> older (relative to each article's reported publish time, not to real time given the feed delay).<br>
   Built for editorial monitoring only — always verify against the original publisher before quoting or acting on a story.
 </footer>
@@ -454,6 +454,16 @@
         en: "Ministry of Railways India",
         hi: "रेल मंत्रालय",
         pa: "ਰੇਲ ਮੰਤਰਾਲਾ"
+    }},
+    { id: "citynews",    label: "Kapurthala & Jalandhar", queries: {
+        en: "Kapurthala Jalandhar news",
+        hi: "कपूरथला जालंधर समाचार",
+        pa: "ਕਪੂਰਥਲਾ ਜਲੰਧਰ ਖ਼ਬਰਾਂ"
+    }},
+    { id: "religion",    label: "Local Religion & Culture", queries: {
+        en: "Kapurthala Jalandhar gurdwara religious",
+        hi: "कपूरथला जालंधर गुरुद्वारा धार्मिक",
+        pa: "ਕਪੂਰਥਲਾ ਜਲੰਧਰ ਗੁਰਦੁਆਰਾ ਧਾਰਮਿਕ"
     }}
   ];
 
@@ -479,7 +489,7 @@
   // Fallback relay used only if the browser blocks the direct NewsData.io call with a CORS error.
   const CORS_FALLBACK = (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
 
-  const REFRESH_MS = 4 * 60 * 60 * 1000; // 4 hours — 7 topics × en/hi/pa = 21 calls per cycle; at 6 cycles/day that's ~126 calls, leaving headroom under the 200 credits/day free-tier cap for manual refreshes too
+  const REFRESH_MS = 6 * 60 * 60 * 1000; // 6 hours — 9 topics × en/hi/pa = 27 calls per cycle; at 4 cycles/day that's ~108 calls, leaving headroom under the 200 credits/day free-tier cap for manual refreshes too
 
   let state = {
     activeTopic: "all",
